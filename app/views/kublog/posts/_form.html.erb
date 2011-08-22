@@ -1,0 +1,57 @@
+<%= form_for post, :html => {:class => 'post_form'} do |f| %>
+  <div class='field'>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class='field'>
+    <%= f.text_area :body, :class => 'editor' %>
+  </div>
+  <div class='field'>
+    <%= f.label :category_id %><br />
+    <%= select_tag 'post[category_id]', category_options.html_safe %>
+  </div>
+  
+  <div class='field'>
+    <%= f.check_box :twitter_notify, :class => 'trigger-optional', :checked => false %> 
+    <%= f.label :twitter_notify %> <br />
+    <div class='optional'>
+      <%= f.text_area :tweet_text, :rows => 5, :cols => 10, :maxlength => 129, :value => '', :disabled => true %> 
+      <span class='chars_left'>129</span><br />
+      <small><%= t('.link_to_tweet')  %></small>
+    </div>
+  </div>
+  
+  <div class='field'>
+    <%= f.check_box :facebook_notify, :class => 'trigger-optional', :checked => false %> 
+    <%= f.label :facebook_notify %> <br />
+    <div class='optional'>
+      <%= f.text_area :facebook_text, :rows => 5, :cols => 10, :value => '', :disabled => true  %> <br />
+      <small><%= t('.link_to_facebook')  %></small>
+    </div>
+  </div>
+  
+  <div class='field'>
+    <%= f.check_box :email_notify, :class => 'trigger-optional', :checked => false %> 
+    <%= f.label :email_notify %>
+    <% unless user_kinds.empty?  %>
+      <div class='optional'>
+        <ul>
+          <% user_kinds.each do |user_kind|%>
+            <li>
+              <%= check_box_tag "post[intended_for][]", user_kind, nil, 
+                                :id => "post_intended_for_#{user_kind}" %>
+              <%= label_tag "post_intended_for_#{user_kind}", user_kind.titleize %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class='field'>
+    <%= f.submit :id => 'create_post_button' %>
+  </div>
+  
+  <%= render 'email_form', :f => f %>
+  <%= render 'image_form' %>
+<% end %>

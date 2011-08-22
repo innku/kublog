@@ -1,0 +1,31 @@
+<% if current_user.admin? %>
+  <%= link_to 'New Post', new_post_path %>
+<% end %>
+
+<h1>
+  <%= @presenter.title %>
+</h1>
+
+<% unless @presenter.categories.empty? %>
+  <ul id='categories'>
+    <% @presenter.categories.each do |category|%>
+      <li>
+        <%= link_to category, category %> 
+        <% if current_user.admin? %>
+          <small>
+            (<%= link_to t('.edit'), '#', :class => 'edit', 'data-prompt' => t('.edit_category_prompt') %> | 
+             <%= link_to t('.delete'), '#', :class=> 'delete', 'data-confirm' => t('.category_delete_confirm')%>)
+          </small>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% @presenter.posts.each do |post| %>  
+  <div class='post'>
+    <%= link_to content_tag(:h2, post.title, :class => 'post-title'), quickie_path(post) %>
+    <%= post.updated_at %>
+    <%= post.body.html_safe %>
+  </div>
+<% end %>

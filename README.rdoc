@@ -1,0 +1,24 @@
+= Kublog
+
+== Dependencies
+
+* Ruby  1.9.x
+* Rails 3.1
+* Bundler
+
+== How to Use
+
+Require in your Gemfile
+  
+  gem 'kublog', '0.1.0'
+  
+Migrate the Kublog posts into your database
+
+  rake kublog:install:migrations
+  
+== Assumptions
+  
+* Your current user method finds the user with session[:user_id]
+* Your User model has an admin? method 
+  
+

@@ -1,0 +1,16 @@
+<%= link_to 'Back to blog index', posts_path %>
+
+<h1 class='post-title'>
+  <%= @post %>
+</h1>
+
+<div class='post-pody'>
+  <%= @post.body.html_safe %>
+</div>
+
+<% if current_user.admin? %>
+  <div class='post-actions'>
+    <%= link_to t('.edit'),  [:edit, @post] %> |
+    <%= link_to t('.delete'), @post, :method => :delete, :confirm => t('.confirm') %>
+  </div>
+<% end %>

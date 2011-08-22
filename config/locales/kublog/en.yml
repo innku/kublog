@@ -1,0 +1,5 @@
+en:
+  kublog:
+    posts:
+      new:
+        title: 'Building a Post'

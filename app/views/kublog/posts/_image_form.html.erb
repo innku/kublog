@@ -1,0 +1,26 @@
+<div style='display:none'>
+  <%= link_to '#', '#image-upload', :class => 'fancybox', :id => 'link-to-upload' %>
+  <div id="image-upload">
+    <h2><%= t('.insert_image') %></h2>
+    <%= hidden_field_tag :image_id %>
+    <div class='image-file field'>
+      <%= file_field_tag :image, :class => 'upload' %><br /><br />
+      <div class='container'>
+        <span></span>
+        <%= image_tag missing_image_url, :id => 'uploaded-file-placeholder' %>
+      </div>
+    </div>
+    <div class='image-alt field'>
+      <%= label_tag :image_alt, t('.alt') %><br />
+      <%= text_field_tag :image_alt, '', :disabled => true  %>
+    </div>
+    <div class='image-size field'>
+      <%= label_tag :insert_size, t('.insert_size') %><br />
+      <%= select_tag :insert_size, size_options,  :disabled => true %>
+    </div>
+    <div class='field'>
+      <%= submit_tag t('.insert_image'), :disabled => true %> 
+      <%= t('.or') %> <%= link_to t('.cancel'), '#', :id => 'cancel-upload' %>
+    </div>
+  </div>  
+</div>
