@@ -9,9 +9,9 @@ module Kublog
       @size_options ||= options_from_collection_for_select(VERSIONS, :first, :second)
     end
     
-    def category_options
+    def category_options(post)
       categories = Kublog::Category.all
-      category_options = options_from_collection_for_select(categories, :id, :name)
+      category_options = options_from_collection_for_select(categories, :id, :name, post.category.try(:id))
       options = "<option value='' class='blank'></option>"
       options += category_options      
       options += "<option value='create_new_category'>New category...</option>"
@@ -24,6 +24,10 @@ module Kublog
     
     def missing_image_url
       Kublog::FileUploader.new.default_url
+    end
+    
+    def display?(should)
+      should ? 'display:block' : 'display:none'
     end
     
   end

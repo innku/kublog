@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kublog</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "kublog/application" %>
+  <%= javascript_include_tag "kublog/application" %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body id='kublog'>
+  <div id='container'>
+    
+    <div id="header">
+      <%= link_to content_tag(:h1, Kublog), main_app.kublog_path %>
+      <%= render 'layouts/account' %>
+    </div>
+    <div class='clear'></div>
+    
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+    
+    <%= yield %>
+    <div class='clear'></div>
+    
+  </div>
+</body>
+
+</html>

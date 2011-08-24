@@ -5,7 +5,7 @@ class CreateKublogCategories < ActiveRecord::Migration
       t.string :slug
       t.timestamps
     end
-    
     add_index :kublog_categories, :name
+    add_index :kublog_categories, :slug, :unique => true
   end
 end

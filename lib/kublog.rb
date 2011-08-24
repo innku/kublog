@@ -1,4 +1,16 @@
+require "rails"
+require 'coffee-script'
+require "jquery-rails"
+require "twitter"
+require "fb_graph"
+require "friendly_id"
+require "carrierwave"
+require "rmagick"
+require "sanitize"
+require "liquid"
+
 require "kublog/engine"
+require "kublog/version"
 
 module Kublog
   
@@ -23,8 +35,17 @@ module Kublog
   mattr_accessor  :user_kinds
   @@user_kinds = []
   
-  mattr_accessor  :notification_processing
+  mattr_reader    :notification_processing
   @@notification_processing = :immediately
+  
+  def self.notification_processing=(method='')
+    @@notification_processing = method.to_sym
+    if @@notification_processing == :delayed_job
+      unless defined? Delayed::Job
+        raise 'You must require delayed_job in your Gemfile to use this feature' 
+      end
+    end
+  end
   
   KublogTwitter = Twitter.clone
   mattr_accessor  :twitter_client
@@ -46,5 +67,14 @@ module Kublog
   def self.twitter
     yield @@twitter_client
   end
+  
+  def self.asset_path(path)
+    ["/assets", self.root_path , path].join
+  end
+  
+  def self.root_path
+    Engine.routes.url_helpers.root_path
+  end
+  
   
 end

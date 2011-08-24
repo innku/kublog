@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of :password
   
   def to_s
-    email
+    name.titleize
   end
   
   def notify_post?(post)
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    true
+    self.admin
   end
   
 end

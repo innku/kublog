@@ -1,12 +1,12 @@
 Kublog::Engine.routes.draw do
   root  :to => 'posts#index'
   resources :posts do
+    resources :comments
     collection do
       post :check
     end
   end
   resources :images
   resources :categories
-  
-  match '/:post_slug' => redirect("/kublog/posts/%{post_slug}"), :as => 'quickie'
+  match '/:id', :to => 'posts#show', :as => 'quickie'
 end

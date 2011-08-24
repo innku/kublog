@@ -6,6 +6,8 @@ en:
         delete: 'delete'
         category_delete_confirm: 'Are you sure? All posts under this category will be left uncategorized'
         edit_category_prompt: 'New name:'
+        actions: 'Actions'
+        categories: 'Categories'
       new:
         title: 'Building a Post'
       edit:
@@ -14,12 +16,14 @@ en:
         edit: 'Edit'
         delete: 'Delete'
         confirm: 'Are you sure?'
+        new_comment: 'New Comment'
+        post_actions: 'Post Actions'
       form:
         or: 'or'
         cancel: 'cancel'
         format_email: 'Format E-Mail'
-        link_to_tweet: 'A link to the post will be appended to the tweet'
-        link_to_facebook: "It will publish on the apps wall as a Link to the post"
+        link_to_tweet: 'A link to this post will be appended'
+        link_to_facebook: "Will be published as link to this post"
       image_form:
         insert_image: 'Insert Image'
         or: 'or'
@@ -37,6 +41,9 @@ en:
         title: 'Title'
         body: 'Body'
         category_id: 'Category'
+      'kublog/comment':
+        author_name: 'Name'
+        author_email: 'E-mail'
   helpers:
     label:
       post:

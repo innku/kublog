@@ -2,3 +2,40 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+#kublog #image-upload h2{
+  margin-top:0px;
+}
+
+#kublog #image-upload small{
+  display:block;
+  margin-top:5px;
+}
+
+#kublog .image-file .container{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;  
+  width:150px;
+  height:150px;
+  border:1px solid #ccc;
+}
+
+#kublog .image-file .container * {
+    vertical-align: middle;
+}
+
+/*\*//*/
+#kublog .image-file .container {
+    display: block;
+}
+#kublog .image-file .container span {
+    display: inline-block;
+    height: 100%;
+    width: 1px;
+}
+/**/
+
+#kublog #image-upload{
+  padding:5px;
+}

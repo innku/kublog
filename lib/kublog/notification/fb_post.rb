@@ -11,6 +11,7 @@ module Kublog
         end
         
         base.send :after_create, :notify_facebook
+        base.send :validates_presence_of, :facebook_text, :if => :facebook_notify
       end
       
       module InstanceMethods

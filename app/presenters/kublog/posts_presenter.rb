@@ -14,7 +14,7 @@ module Kublog
     end
     
     def title
-      Kublog.blog_name
+      @title ||= @category.nil? ? Kublog.blog_name : "#{@category.name} :: #{Kublog.blog_name}"
     end
     
     def updated

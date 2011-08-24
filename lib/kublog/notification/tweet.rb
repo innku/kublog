@@ -14,6 +14,7 @@ module Kublog
         end
         
         base.send :after_create,  :notify_tweet
+        base.send :validates_presence_of, :tweet_text, :if => :twitter_notify
       end
       
       module InstanceMethods

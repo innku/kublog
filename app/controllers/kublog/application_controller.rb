@@ -9,10 +9,18 @@ module Kublog
       @current_user ||= User.find_by_id(session[:user_id])
     end
     
-    helper_method :current_user
+    def signed_in?
+      !!current_user
+    end
+    
+    def is_admin?
+      current_user && current_user.try(:admin?)
+    end
+    
+    helper_method :current_user, :signed_in?, :is_admin?
     
     def require_admin
-      redirect_to root_path unless current_user.admin?
+      redirect_to root_path unless is_admin?
     end
     
   end

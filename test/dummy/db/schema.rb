@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110819135547) do
+ActiveRecord::Schema.define(:version => 20110822194341) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,6 +36,20 @@ ActiveRecord::Schema.define(:version => 20110819135547) do
   end
 
   add_index "kublog_categories", ["name"], :name => "index_kublog_categories_on_name"
+  add_index "kublog_categories", ["slug"], :name => "index_kublog_categories_on_slug", :unique => true
+
+  create_table "kublog_comments", :force => true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "author_name"
+    t.string   "author_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "kublog_comments", ["post_id"], :name => "index_kublog_comments_on_post_id"
+  add_index "kublog_comments", ["user_id"], :name => "index_kublog_comments_on_user_id"
 
   create_table "kublog_images", :force => true do |t|
     t.string   "alt"
@@ -57,11 +72,11 @@ ActiveRecord::Schema.define(:version => 20110819135547) do
     t.boolean  "facebook_notify", :default => false
     t.text     "facebook_text"
     t.integer  "user_id"
+    t.integer  "category_id"
     t.string   "intended_for"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id"
   end
 
   add_index "kublog_posts", ["category_id"], :name => "index_kublog_posts_on_category_id"
@@ -70,8 +85,10 @@ ActiveRecord::Schema.define(:version => 20110819135547) do
   add_index "kublog_posts", ["user_id"], :name => "index_kublog_posts_on_user_id"
 
   create_table "users", :force => true do |t|
+    t.string   "name"
     t.string   "email"
     t.string   "password_digest"
+    t.boolean  "admin",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

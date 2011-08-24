@@ -3,67 +3,37 @@
   They will automatically be included in application.css.
 */
 
-#kublog .editor-container{
-  width:600px;
+#kublog textarea#post_body{
+  width:550px;
 }
 
-#kublog #email-template{
-  width:620px;
-}
-
-#kublog textarea{
-  width:600px;
-}
-
-#kublog .optional{
+#kublog div.optional{
   display:none;
 }
 
-#kublog #post_tweet_text, #kublog #post_facebook_text{
+#kublog textarea.small{
   width:250px;
-}
-
-#kublog .toolbar li{
-  margin:0px 8px 3px 0px;
-}
-
-#kublog #image-upload h2{
-  margin-top:0px;
-}
-
-#kublog #image-upload small{
   display:block;
-  margin-top:5px;
 }
 
 #kublog .field{
   margin:10px 0px;
 }
 
-#kublog .image-file .container{
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;  
-  width:150px;
-  height:150px;
-  border:1px solid #ccc;
+/* Sets up a little margin for Wysiwyg editor */
+
+#kublog .toolbar li{
+  margin:0px 8px 3px 0px;
 }
 
-#kublog .image-file .container * {
-    vertical-align: middle;
+#kublog label.error{
+  color:#f00; 
 }
 
-/*\*//*/
-#kublog .image-file .container {
-    display: block;
+#kublog input.error,#kublog textarea.error{
+  border:1px solid red;
 }
-#kublog .image-file .container span {
-    display: inline-block;
-    height: 100%;
-    width: 1px;
-}
-/**/
 
-#kublog #image-upload{
-  padding:5px;
+small.error_description{
+  margin-left:5px;
 }

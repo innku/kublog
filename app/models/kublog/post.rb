@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Kublog
   class Post < ActiveRecord::Base
     extend FriendlyId
@@ -6,7 +7,10 @@ module Kublog
     #Associations
     belongs_to                :user
     belongs_to                :category
+    has_many                  :comments, :dependent => :destroy
+    
     validates_presence_of     :title, :body, :user
+    validate                  :body_with_content
     
     #Special Attributes
     serialize                 :intended_for, Array
@@ -24,9 +28,15 @@ module Kublog
       Engine.routes.url_helpers.quickie_url(self, :host => Kublog.default_url_options[:host])
     end
     
-    def test
-      debugger
-      puts 'bla'
+    private
+    
+    def body_with_content
+      errors.add(:body, :blank) if blank_body?
+    end
+    
+    # Weird regex identifies &nbsp; generated blank chars
+    def blank_body?
+      Sanitize.clean(self.body).gsub(/[ | ]/, '').blank? 
     end
     
   end

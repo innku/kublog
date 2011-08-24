@@ -1,0 +1,8 @@
+<div id='account'>
+  <% if signed_in? %>
+    <%= current_user %> | <%= link_to 'Sign Out', '/signout' %>
+  <% else %>
+    <%= link_to 'Sign In', main_app.new_session_path %> | 
+    <%= link_to 'Register', main_app.new_user_path %> 
+  <% end %>
+</div>

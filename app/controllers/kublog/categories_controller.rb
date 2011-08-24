@@ -4,11 +4,12 @@ module Kublog
     skip_filter :require_admin, :only => [:show]
     
     def show
-      @presenter = PostsPresenter.new(Category.find(params[:id]))
+      @category = Category.find(params[:id])
+      @presenter = PostsPresenter.new(@category)
       respond_to do |format|
-        format.atom { render :layout => false }
-        format.rss  { redirect_to posts_path(:format => :atom), :status => :moved_permanently }
-        format.html { render "#{root_path}posts/index" }
+        format.atom { render "/kublog/posts/index", :layout => false }
+        format.rss  { redirect_to category_path(@category, :format => :atom), :status => :moved_permanently }
+        format.html { render "/kublog/posts/index" }
       end
     end
     

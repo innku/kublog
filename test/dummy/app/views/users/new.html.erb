@@ -1,6 +1,10 @@
-<h1>Register</h1>
+<h2>Register</h2>
 
 <%= form_for @user do |f| %>
+  <p>
+    <%= f.label      :name %><br />
+    <%= f.text_field :name %>
+  </p>
   <p>
     <%= f.label :email %><br />
     <%= f.text_field :email %>
@@ -12,7 +16,11 @@
   <p>
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
-  </p>       
+  </p>    
+  <p>
+    
+    <%= f.check_box :admin %> <%= f.label :admin, 'Product Administrator' %>
+  </p>   
   <p>
     <%= f.submit  %>
   </p>       

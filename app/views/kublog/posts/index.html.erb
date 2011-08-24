@@ -1,31 +1,36 @@
-<% if current_user.admin? %>
-  <%= link_to 'New Post', new_post_path %>
-<% end %>
-
-<h1>
-  <%= @presenter.title %>
-</h1>
-
-<% unless @presenter.categories.empty? %>
-  <ul id='categories'>
-    <% @presenter.categories.each do |category|%>
-      <li>
-        <%= link_to category, category %> 
-        <% if current_user.admin? %>
-          <small>
-            (<%= link_to t('.edit'), '#', :class => 'edit', 'data-prompt' => t('.edit_category_prompt') %> | 
-             <%= link_to t('.delete'), '#', :class=> 'delete', 'data-confirm' => t('.category_delete_confirm')%>)
-          </small>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<div class='post-actions'>
+  <% if is_admin? %>
+    <h2><%= t('.actions') %></h2>
+    <ul>
+      <li><%= link_to 'New Post', new_post_path %></li>
+    </ul>
+  <% end %>
+  <% unless @presenter.categories.empty? %>
+    <h2><%= t('.categories') %></h2>
+    <ul id='categories'>
+      <% @presenter.categories.each do |category|%>
+        <li>
+          <%= link_to category, category %> 
+          <% if is_admin? %>
+            <small>
+              (<%= link_to t('.edit'), '#', :class => 'edit', 'data-prompt' => t('.edit_category_prompt') %> | 
+               <%= link_to t('.delete'), '#', :class=> 'delete', 'data-confirm' => t('.category_delete_confirm')%>)
+            </small>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 
 <% @presenter.posts.each do |post| %>  
   <div class='post'>
     <%= link_to content_tag(:h2, post.title, :class => 'post-title'), quickie_path(post) %>
-    <%= post.updated_at %>
-    <%= post.body.html_safe %>
+    <span class='published-at'>
+      <%= l post.updated_at, :format => :short %>
+    </span>
+    <div class='post-body'>
+      <%= post.body.html_safe %>
+    </div>
   </div>
 <% end %>

@@ -1,16 +1,47 @@
-<%= link_to 'Back to blog index', posts_path %>
-
-<h1 class='post-title'>
-  <%= @post %>
-</h1>
-
+<div class='post-actions'>
+  <h2><%= t('.post_actions') %></h2>
+    <ul>
+      <% if is_admin? %>
+        <li><%= link_to t('.edit'),  [:edit, @post] %></li>
+        <li><%= link_to t('.delete'), @post, :method => :delete, :confirm => t('.confirm') %></li>
+      <% end %>
+      <li> <%= link_to 'All posts', posts_path %></li>
+    </ul>
+</div>
+<div class='post-title'>
+  <h1><%= @post %></h1>
+  <span class='published-at'><%= l @post.updated_at, :format => :short %></span>
+</div>
 <div class='post-pody'>
   <%= @post.body.html_safe %>
 </div>
-
-<% if current_user.admin? %>
-  <div class='post-actions'>
-    <%= link_to t('.edit'),  [:edit, @post] %> |
-    <%= link_to t('.delete'), @post, :method => :delete, :confirm => t('.confirm') %>
-  </div>
-<% end %>
+<hr />
+<div class='post-comments'>
+  <% @post.comments.each do |comment| %>
+    <div class='comment'>
+      <h3><%= comment.author %></h3>
+      <p class='body'><%= comment.body %></p>
+      <span><%= l comment.created_at, :format => :short %></span>
+      <% if is_admin? %>
+        <div class='admin-actions'>
+          <%= link_to t('.delete'), post_comment_path(@post, comment), 
+                                    :method => :delete, :confirm => t('.confirm'), 
+                                    :class=> 'delete' %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class='new-comment'>
+  <h2><%= t('.new_comment') %></h2>
+  <%= form_for [@post, Kublog::Comment.new], :remote => true do |f| %>
+    <%= f.text_area :body, :rows => 5, :cols => 20, :class => 'small' %> <br />
+    <% unless current_user %>
+      <%= f.label :author_name %><br />
+      <%= f.text_field :author_name %> <br />
+      <%= f.label :author_email %><br />
+      <%= f.text_field :author_email %> <br />
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>
