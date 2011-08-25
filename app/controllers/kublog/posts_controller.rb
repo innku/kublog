@@ -17,7 +17,8 @@ module Kublog
     end
     
     def show
-      @post = Post.find(params[:id])
+      post = Post.find(params[:id])
+      @presenter = PostPresenter.new(post)
     end
     
     #TODO: Figure out a proxy method to access User

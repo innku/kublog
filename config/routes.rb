@@ -4,9 +4,10 @@ Kublog::Engine.routes.draw do
     resources :comments
     collection do
       post :check
+      put  :check
     end
   end
   resources :images
   resources :categories
-  match '/:id', :to => 'posts#show', :as => 'quickie'
+  match     '/:id', :to => 'posts#show', :as => 'quickie'
 end

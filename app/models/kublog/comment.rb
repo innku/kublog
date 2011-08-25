@@ -6,6 +6,10 @@ module Kublog
     validates_presence_of :body
     validate              :has_user_details
     
+    default_scope   order('kublog_comments.created_at ASC')
+    
+    delegate  :admin?, :to => :user, :allow_nil => true
+    
     def author
       return self.author_name if self.user.nil?
       return self.user.to_s
@@ -17,7 +21,11 @@ module Kublog
     end
     
     def as_json(options={})
-      super(options.merge({:methods => [:path, :author]}))
+      super(options.merge({:methods => [:path, :author, :ftime, :admin?]}))
+    end
+    
+    def ftime
+      I18n.l(self.created_at, :format => :short)
     end
     
     private

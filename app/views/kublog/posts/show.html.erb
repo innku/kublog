@@ -2,29 +2,29 @@
   <h2><%= t('.post_actions') %></h2>
     <ul>
       <% if is_admin? %>
-        <li><%= link_to t('.edit'),  [:edit, @post] %></li>
-        <li><%= link_to t('.delete'), @post, :method => :delete, :confirm => t('.confirm') %></li>
+        <li><%= link_to t('.edit'),  [:edit, @presenter.post] %></li>
+        <li><%= link_to t('.delete'), @presenter.post, :method => :delete, :confirm => t('.confirm') %></li>
       <% end %>
       <li> <%= link_to 'All posts', posts_path %></li>
     </ul>
 </div>
 <div class='post-title'>
-  <h1><%= @post %></h1>
-  <span class='published-at'><%= l @post.updated_at, :format => :short %></span>
+  <h1><%= @presenter.post %></h1>
+  <span class='published-at'><%= l @presenter.post.updated_at, :format => :short %></span>
 </div>
 <div class='post-pody'>
-  <%= @post.body.html_safe %>
+  <%= @presenter.post.body.html_safe %>
 </div>
 <hr />
 <div class='post-comments'>
-  <% @post.comments.each do |comment| %>
-    <div class='comment'>
-      <h3><%= comment.author %></h3>
+  <% @presenter.comments.each do |comment| %>
+    <div class='comment <%= admin_comment?(comment) %>'>
+      <h4><%= comment.author %></h4>
       <p class='body'><%= comment.body %></p>
       <span><%= l comment.created_at, :format => :short %></span>
       <% if is_admin? %>
         <div class='admin-actions'>
-          <%= link_to t('.delete'), post_comment_path(@post, comment), 
+          <%= link_to t('.delete'), post_comment_path(@presenter.post, comment), 
                                     :method => :delete, :confirm => t('.confirm'), 
                                     :class=> 'delete' %>
         </div>
@@ -34,7 +34,7 @@
 </div>
 <div class='new-comment'>
   <h2><%= t('.new_comment') %></h2>
-  <%= form_for [@post, Kublog::Comment.new], :remote => true do |f| %>
+  <%= form_for [@presenter.post, Kublog::Comment.new], :remote => true do |f| %>
     <%= f.text_area :body, :rows => 5, :cols => 20, :class => 'small' %> <br />
     <% unless current_user %>
       <%= f.label :author_name %><br />

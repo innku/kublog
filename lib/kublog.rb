@@ -15,6 +15,7 @@ require "kublog/version"
 module Kublog
   
   autoload   :Notifiable, 'kublog/notifiable'
+  autoload   :Author,     'kublog/author'
   
   module Notification
     autoload :Email,      'kublog/notification/email'
@@ -29,6 +30,11 @@ module Kublog
     autoload :FileHelper, 'kublog/xhr_upload/file_helper'
   end
   
+  module UserIntegration
+    autoload :Common, 'kublog/user_integration/common'
+    autoload :Devise, 'kublog/user_integration/devise'
+  end
+  
   mattr_accessor  :default_url_options
   @@default_url_options = {:host => 'www.example.com'}
   
@@ -37,6 +43,9 @@ module Kublog
   
   mattr_reader    :notification_processing
   @@notification_processing = :immediately
+  
+  mattr_accessor  :image_storage
+  @@image_storage = :file
   
   def self.notification_processing=(method='')
     @@notification_processing = method.to_sym
@@ -54,7 +63,7 @@ module Kublog
   mattr_accessor  :facebook_client
   
   mattr_accessor  :blog_name
-  @@blog_name = 'Kublog::Blog'
+  @@blog_name =   'Kublog::Blog'
     
   def self.facebook_page_token=(token)
     @@facebook_client = FbGraph::User.me(token)

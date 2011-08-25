@@ -20,10 +20,11 @@ $(document).ready ->
     
 # Templates
 commentTemplate = (comment) ->
+  extra_class = ' admin' if comment['admin?']?
   """
-  <div class='comment'> 
-    <h3>#{comment.author}</h3> 
+  <div class='comment#{extra_class}'>
+    <h4>#{comment.author}</h4> 
+    <span>#{comment.ftime}</span> 
     <p class='body'>#{comment.body}</p> 
-    <span>#{comment.created_at}</span> 
   </div>
   """

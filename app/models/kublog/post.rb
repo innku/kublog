@@ -17,15 +17,23 @@ module Kublog
     friendly_id               :title, :use => :slugged
     
     #Scopes
-    default_scope             order('kublog_posts.updated_at DESC') 
+    default_scope             order('kublog_posts.created_at DESC')
+    
+    def author
+      user.to_s
+    end
     
     def to_s
-      title.titleize
+      title
     end
     
     # Public Access to the Post
     def url
       Engine.routes.url_helpers.quickie_url(self, :host => Kublog.default_url_options[:host])
+    end
+    
+    def related_posts
+      self.category.posts.where('id != ?', self.id) unless self.category.nil?
     end
     
     private

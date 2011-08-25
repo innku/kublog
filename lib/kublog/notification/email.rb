@@ -54,7 +54,7 @@ module Kublog
         def build_email_body
           if self.email_body.blank? && !Sanitize.clean(self.body).blank?
             template_path = "app/views/kublog/post_mailer/new_post.liquid.html.erb"
-            template = File.open(File.join(Engine.root, template_path))
+            template = File.open(File.join(Rails.root, template_path))
             read_erb_template(template)
           end
         end

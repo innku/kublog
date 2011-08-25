@@ -30,5 +30,9 @@ module Kublog
       should ? 'display:block' : 'display:none'
     end
     
+    def admin_comment?(comment)
+      comment.admin? ? 'admin' : ''
+    end
+    
   end
 end

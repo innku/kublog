@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   include Kublog::Notifiable
-  
-  #TODO: Should be included into a helper
-  has_many              :posts, :class_name => 'Kublog::Post' 
+  include Kublog::Author
   
   has_secure_password
   validates_presence_of :email
