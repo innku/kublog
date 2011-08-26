@@ -5,7 +5,7 @@ require "twitter"
 require "fb_graph"
 require "friendly_id"
 require "carrierwave"
-require "rmagick"
+require "RMagick"
 require "sanitize"
 require "liquid"
 
