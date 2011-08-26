@@ -1,10 +1,10 @@
 = Kublog
 
-Kublog is a complete yet simple way to have a Product Blog that integrates with your apps user base. It includes social sharing, rss and moderated comments.
+Kublog is a complete yet simple way to have a Product Blog that integrates with your apps user base. It includes social sharing, atom feeds and moderated comments.
 
 Built for Rails 3.1, Kublog is a complete stack, fully configurable solution. 
 
-Currently in alpha, hackers welcome.
+Currently in alpha and under continuous development, hackers welcome.
 
 == Features
 
@@ -38,6 +38,65 @@ Mount Kublog on your routes file
   
 == How to Use
 
-Kublog User Integration depends on two methods living on <em>app/kublog/application_controller</em>:
+On your user model:
+
+  include Kublog::Author
+  include Kublog::Notifiable
+
+=== User Integration
+
+Kublog User Integration depends on two functioning methods living on Kublog::ApplicationController
+
 * current_user
 * is_admin?
+
+==== Basic User Management
+
+If you are currently storing your users on session[:user_id] and have the method *admin?* for your user class, things should just work.
+
+==== Devise
+
+Replace this line
+
+  include UserIntegration::Common
+  
+With this line
+  
+  include UserIntegration::Devise
+  
+==== Uber custom user integration
+
+Override current_user, is_admin? methods for Kublog::ApplicationController
+
+Override admin? for your Kublog::Author class
+
+TODO: Better docs
+  
+==== Custom Integration, Social Networks and Image Uploading
+
+Take a look at this example configuration:
+
+  Kublog.setup do |config|
+  
+    config.blog_name = 'Rutanet'
+    config.default_url_options = {:host => 'www.rutanet.com'}
+    config.notification_processing = :immediate # or :delayed_job     
+                                                                  
+    config.user_kinds = %w(shipper carrier logistics)
+  
+    config.image_storage = :file # or :s3
+  
+    config.twitter do |twitter|
+      twitter.consumer_key = 'xxx'
+      twitter.consumer_secret = 'xxx'
+      twitter.oauth_token = 'xxx'
+      twitter.oauth_token_secret = 'xxx'
+    end
+  
+    config.facebook_page_token = 'xxx'
+  
+  end
+  
+TODO: More docs
+
+Will include much more documentation as development continues, please be patient.
