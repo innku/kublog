@@ -26,7 +26,7 @@ Currently in alpha and under continuous development, hackers welcome.
 
 Require in your Gemfile
   
-  gem 'kublog', '0.1.0'
+  gem 'kublog', '0.0.1'
   
 Migrate the Kublog posts into your database
 
