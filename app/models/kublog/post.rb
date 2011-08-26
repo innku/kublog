@@ -5,7 +5,7 @@ module Kublog
     include Notification::Email, Notification::Tweet, Notification::FbPost
     
     #Associations
-    belongs_to                :user
+    belongs_to                :user, :class_name => Kublog.author_class
     belongs_to                :category
     has_many                  :comments, :dependent => :destroy
     

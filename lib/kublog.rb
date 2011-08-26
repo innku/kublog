@@ -47,6 +47,9 @@ module Kublog
   mattr_accessor  :image_storage
   @@image_storage = :file
   
+  mattr_accessor :author_class
+  @@author_class =  'User'
+  
   def self.notification_processing=(method='')
     @@notification_processing = method.to_sym
     if @@notification_processing == :delayed_job

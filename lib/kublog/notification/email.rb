@@ -31,13 +31,14 @@ module Kublog
       end
     
       module InstanceMethods
+        
         # Called to notify users after the creation of a post
         # probably should happen after publication
         def notify_email
           klass = user.class
           if klass.try(:kublog_notifiable) && self.email_notify
             notifications_sent = 0
-            klass.all.each do |user|
+            klass.find_each do |user|
               if user.notify_post?(self)
                 post_deliver(self, user)
                 notifications_sent += 1

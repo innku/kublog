@@ -1,12 +1,28 @@
 = Kublog
 
-== Dependencies
+Kublog is a complete yet simple way to have a Product Blog that integrates with your apps user base. It includes social sharing, rss and moderated comments.
+
+Built for Rails 3.1, Kublog is a complete stack, fully configurable solution. 
+
+Currently in alpha, hackers welcome.
+
+== Features
+
+* Publish posts with the most basic and simple wysiwyg
+* Attach multiple images to your content
+* Share your posts on your Product's Twitter Page and Facebook Fan Page
+* E-mail personalized versions of your posts to your users
+* Optional background processing with Delayed Job
+* Moderated comments from apps users, apps admins, and visitors
+* Atom feed for main blog and individual post categories
+
+== What you need
 
 * Ruby  1.9.x
 * Rails 3.1
 * Bundler
 
-== How to Use
+== Install
 
 Require in your Gemfile
   
@@ -16,9 +32,12 @@ Migrate the Kublog posts into your database
 
   rake kublog:install:migrations
   
-== Assumptions
-  
-* Your current user method finds the user with session[:user_id]
-* Your User model has an admin? method 
-  
+Mount Kublog on your routes file
 
+  mount Kublog::Engine => "/blog(.:format)"
+  
+== How to Use
+
+Kublog User Integration depends on two methods living on <em>app/kublog/application_controller</em>:
+* current_user
+* is_admin?

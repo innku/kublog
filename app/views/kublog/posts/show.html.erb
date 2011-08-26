@@ -15,7 +15,6 @@
 <div class='post-pody'>
   <%= @presenter.post.body.html_safe %>
 </div>
-<hr />
 <div class='post-comments'>
   <% @presenter.comments.each do |comment| %>
     <div class='comment <%= admin_comment?(comment) %>'>

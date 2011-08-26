@@ -4,11 +4,10 @@ module Kublog
       
       def self.included(base)
         base.send :include, InstanceMethods
-        base.send :helper_method, :current_user, :is_admin?
+        base.send :helper_method, :current_user, :is_admin?, :signed_in?
       end
       
       module InstanceMethods
-        
         # Uses session[:user_id] to get the user session
         # should be able to change user for x name of model
         def current_user
@@ -18,6 +17,11 @@ module Kublog
         # Tries admin? method for user to filter out publishing actions
         def is_admin?
           current_user && current_user.try(:admin?)
+        end
+        
+        ## Sign in helper method
+        def signed_in?
+          !!current_user
         end
         
       end
