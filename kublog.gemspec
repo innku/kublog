@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   # Runtime dependencies
   s.add_runtime_dependency "rails", '~>3.1.0.rc5'
-  s.add_runtime_dependency 'sprockets', '2.0.0.beta.13' #FIXME: Remove me upon release of Rails 3.1 Final
   s.add_runtime_dependency "jquery-rails", '~>1.0.13'
   s.add_runtime_dependency 'coffee-script', '~>2.2.0'
   s.add_runtime_dependency "friendly_id", "~> 4.0.0.beta8"
