@@ -29,11 +29,15 @@ module Kublog
     
     # Public Access to the Post
     def url
-      Engine.routes.url_helpers.quickie_url(self, :host => Kublog.default_url_options[:host])
+      unless new_record?
+        Engine.routes.url_helpers.quickie_url(self, :host => Kublog.default_url_options[:host])
+      end
     end
     
     def related_posts
-      self.category.posts.where('id != ?', self.id) unless self.category.nil?
+      unless self.category.nil?
+        self.category.posts.where('id != ?', self.id)
+      end
     end
     
     private

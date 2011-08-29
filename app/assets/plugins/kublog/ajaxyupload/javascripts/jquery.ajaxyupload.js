@@ -76,7 +76,7 @@
             contentType : "application/octet-stream",
             dataType    : "json",
             processData : false,
-            data        : file, 
+            data        : file
           });
         });
       });

@@ -2,7 +2,7 @@
 window.setErrors = (model, errors) ->
   for attribute, error of errors
     $label = $("label[for=#{model}_#{attribute}]")
-    $field = $("##{model}_#{attribute}}")
+    $field = $("##{model}_#{attribute}")
     unless $label.size() is 0
       $label.addClass('error')
       $(errorTemplate(error[0])).insertAfter($label)
