@@ -1,7 +1,7 @@
 module Kublog
   class PostsController < ApplicationController
     
-    skip_filter :require_admin, :only => [:index, :show]
+    skip_filter   :require_admin, :only => [:index, :show]
     
     def index
       @presenter = PostsPresenter.new
@@ -59,7 +59,6 @@ module Kublog
           format.json { render :json => @post.errors.messages, :status => :unprocessable_entity }
         end
       end
-        
     end
     
   end

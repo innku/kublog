@@ -3,13 +3,10 @@ class CreateKublogPosts < ActiveRecord::Migration
     create_table :kublog_posts do |t|
       t.string      :title
       t.text        :body
-      t.boolean     :email_notify, :default => false
       t.text        :email_body
       t.integer     :users_notified
-      t.boolean     :twitter_notify, :default => false
       t.string      :tweet_id
       t.string      :tweet_text
-      t.boolean     :facebook_notify, :default => false
       t.text        :facebook_text
       t.references  :user
       t.references  :category

@@ -10,9 +10,11 @@ module Kublog
       # Includes necessary methods for e-mail notification callback
       # and requires appropriate method of notification (Immediate, Delayed Job..)
       def self.included(base)
-      
-        base.send :after_create, :notify_email
+        base.send :attr_accessor, :email_notify
+        
+        base.send :after_save, :notify_email
         base.send :before_validation, :build_email_body, :on => :create
+        base.send :before_validation, :really_notify_email?
       
         base.send :include, case Kublog.notification_processing.try(:to_sym)
           when :delayed_job then DelayedJob
@@ -37,8 +39,9 @@ module Kublog
         def notify_email
           klass = user.class
           if klass.try(:kublog_notifiable) && self.email_notify
+            self.email_notify = false
             notifications_sent = 0
-            klass.find_each do |user|
+            klass.all.each do |user|
               if user.notify_post?(self)
                 post_deliver(self, user)
                 notifications_sent += 1
@@ -63,10 +66,16 @@ module Kublog
             read_erb_template(template)
           end
         end
+        
         def read_erb_template(template)
           post = self
           self.email_body = ERB.new(template.read).result(binding)
         end
+        
+        def really_notify_email?
+          self.email_notify = nil if self.email_notify.to_i.zero?
+        end
+        
       end
     
       # Queues Process on DJ
@@ -79,7 +88,7 @@ module Kublog
       # Delivers Immediately
       module Immediate
         def post_deliver(post,user)
-          PostMailer.new_post(post,user).deliver
+          PostMailer.new_post(post, user).deliver
         end
       end
       

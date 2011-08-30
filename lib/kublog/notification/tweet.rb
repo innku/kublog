@@ -5,6 +5,8 @@ module Kublog
     module Tweet
       
       def self.included(base)
+        base.send :attr_accessor, :twitter_notify
+        
         base.send :include,       InstanceMethods
         base.send :extend,        ClassMethods
         
@@ -15,6 +17,7 @@ module Kublog
         
         base.send :after_create,  :notify_tweet
         base.send :validates_presence_of, :tweet_text, :if => :twitter_notify
+        base.send :before_validation, :really_notify_twitter?
       end
       
       module InstanceMethods
@@ -23,8 +26,13 @@ module Kublog
         
         def notify_tweet
           if self.twitter_notify 
+            self.twitter_notify = false
             tweet_deliver([self.tweet_text, self.url].join(' '))
           end
+        end
+        
+        def really_notify_twitter?
+          self.twitter_notify = nil if self.twitter_notify.to_i.zero?
         end
         
       end
@@ -59,7 +67,7 @@ module Kublog
     # Delivers Immediately
     module Immediate
       def tweet_deliver(tweet)
-        response = safe_twitter_update(tweet, self)
+        response = Post.safe_twitter_update(tweet, self)
         self.update_attributes :tweet_id => response.id, :tweet_text => response.text
       end
     end

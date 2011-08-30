@@ -59,6 +59,24 @@ module Kublog
     end
   end
   
+  def self.email_from(post)
+    if not @@from_action.nil?
+      @@from_action.yield(post)
+    elsif not @@from_string.blank?
+      @@from_string
+    else
+      'Change Me Now Kublog<test@kublog.com>'
+    end
+  end
+  
+  def self.author_email(email='', &block)
+    if block_given?
+      @@from_action = block 
+    else
+      @@from_string = email
+    end
+  end
+  
   KublogTwitter = Twitter.clone
   mattr_accessor  :twitter_client
   @@twitter_client = KublogTwitter::Client.new
