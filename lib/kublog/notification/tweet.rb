@@ -5,7 +5,7 @@ module Kublog
     module Tweet
       
       def self.included(base)
-        base.send :attr_accessor, :twitter_notify
+        base.send :attr_accessor, :twitter_notify, :tweet_text
         
         base.send :include,       InstanceMethods
         base.send :extend,        ClassMethods
@@ -26,7 +26,7 @@ module Kublog
         
         def notify_tweet
           if self.twitter_notify 
-            self.twitter_notify = false
+            self.twitter_notify = nil
             tweet_deliver([self.tweet_text, self.url].join(' '))
           end
         end
@@ -46,12 +46,7 @@ module Kublog
         begin
           return Kublog.twitter_client.update(update)
         rescue Twitter::NotFound
-          latest_tweet = Kublog.twitter_client.user_timeline.first
-          if latest_tweet.text.gsub(/ http:\/\/[^ ]\Z/, '') == post.tweet_text
-            return latest_tweet
-          else
-            return {:id => nil, :text => post.tweet_text}
-          end
+          nil # Dont do anything for now
         end
       end
       
@@ -67,8 +62,7 @@ module Kublog
     # Delivers Immediately
     module Immediate
       def tweet_deliver(tweet)
-        response = Post.safe_twitter_update(tweet, self)
-        self.update_attributes :tweet_id => response.id, :tweet_text => response.text
+        Post.safe_twitter_update(tweet, self)
       end
     end
     

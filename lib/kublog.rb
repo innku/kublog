@@ -60,9 +60,9 @@ module Kublog
   end
   
   def self.email_from(post)
-    if not @@from_action.nil?
+    if defined?(@@from_action)
       @@from_action.yield(post)
-    elsif not @@from_string.blank?
+    elsif defined?(@@from_string)
       @@from_string
     else
       'Change Me Now Kublog<test@kublog.com>'

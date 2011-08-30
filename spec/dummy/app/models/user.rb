@@ -11,11 +11,7 @@ class User < ActiveRecord::Base
   end
   
   def notify_post?(post)
-    if post.for_shipper?
-      return self.email == 'adrian@rutanet.com'
-    else
-      return true
-    end
+    true
   end
   
   def admin?

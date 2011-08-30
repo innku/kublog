@@ -2,8 +2,8 @@
 log/*.log
 pkg/
 *.gem
-test/dummy/db/*.sqlite3
-test/dummy/log/*.log
-test/dummy/tmp/
-test/dummy/public/uploads/
-test/dummy/config/initializers/kublog.rb
+spec/dummy/db/*.sqlite3
+spec/dummy/log/*.log
+spec/dummy/tmp/
+spec/dummy/public/uploads/
+spec/dummy/config/initializers/kublog.rb

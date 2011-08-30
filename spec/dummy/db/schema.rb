@@ -63,14 +63,7 @@ ActiveRecord::Schema.define(:version => 20110822194341) do
   create_table "kublog_posts", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.boolean  "email_notify",    :default => false
-    t.text     "email_body"
-    t.integer  "users_notified"
-    t.boolean  "twitter_notify",  :default => false
-    t.string   "tweet_id"
-    t.string   "tweet_text"
-    t.boolean  "facebook_notify", :default => false
-    t.text     "facebook_text"
+    t.integer  "users_notified", :default => 0
     t.integer  "user_id"
     t.integer  "category_id"
     t.string   "intended_for"

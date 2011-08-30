@@ -10,8 +10,7 @@ module Kublog
       # Includes necessary methods for e-mail notification callback
       # and requires appropriate method of notification (Immediate, Delayed Job..)
       def self.included(base)
-        base.send :attr_accessor, :email_notify
-        
+        base.send :attr_accessor, :email_notify, :email_body
         base.send :after_save, :notify_email
         base.send :before_validation, :build_email_body, :on => :create
         base.send :before_validation, :really_notify_email?
@@ -39,16 +38,20 @@ module Kublog
         def notify_email
           klass = user.class
           if klass.try(:kublog_notifiable) && self.email_notify
-            self.email_notify = false
-            notifications_sent = 0
+            self.email_notify = nil
+            self.users_notified ||= 0
             klass.all.each do |user|
               if user.notify_post?(self)
                 post_deliver(self, user)
-                notifications_sent += 1
+                self.users_notified += 1
               end
             end
-            self.update_attribute :users_notified, notifications_sent
+            self.save
           end
+        end
+        
+        def as_json(extra={})
+          super(extra.merge({:methods => [:email_body]}))
         end
         
         protected

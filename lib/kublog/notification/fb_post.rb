@@ -3,7 +3,7 @@ module Kublog
     module FbPost
       
       def self.included(base)
-        base.send :attr_accessor, :facebook_notify
+        base.send :attr_accessor, :facebook_notify, :facebook_text
         
         base.send :include, InstanceMethods
         
@@ -23,7 +23,7 @@ module Kublog
         
         def notify_facebook
           if self.facebook_notify
-            self.facebook_notify = false
+            self.facebook_notify = nil
             wall_post_deliver(:link => self.url, :message => self.facebook_text)
           end
         end

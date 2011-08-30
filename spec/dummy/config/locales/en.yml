@@ -33,6 +33,7 @@ en:
     post_mailer:
       new_post:
         greetings: 'Greetings'
+        read_more: 'Read More'
   activerecord:
     models:
       'kublog/opst': 'Post'

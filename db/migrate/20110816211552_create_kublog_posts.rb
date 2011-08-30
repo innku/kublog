@@ -3,11 +3,7 @@ class CreateKublogPosts < ActiveRecord::Migration
     create_table :kublog_posts do |t|
       t.string      :title
       t.text        :body
-      t.text        :email_body
-      t.integer     :users_notified
-      t.string      :tweet_id
-      t.string      :tweet_text
-      t.text        :facebook_text
+      t.integer     :users_notified, :default => 0
       t.references  :user
       t.references  :category
       t.string      :intended_for
