@@ -10,7 +10,7 @@ module Kublog
       # Includes necessary methods for e-mail notification callback
       # and requires appropriate method of notification (Immediate, Delayed Job..)
       def self.included(base)
-        base.send :attr_accessor, :email_notify, :email_body
+        base.send :attr_accessor, :email_notify
         base.send :after_save, :notify_email
         base.send :before_validation, :build_email_body, :on => :create
         base.send :before_validation, :really_notify_email?

@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 module Kublog
+  
   describe Post do
-    
+        
     it 'is invalid without a title' do
       Factory.build(:post, :title => nil).should_not be_valid
     end
@@ -54,7 +55,18 @@ module Kublog
     end
     
     describe '#related_posts' do
-
+      
+      before(:all) do
+        @category = Factory(:category)
+        @post = Factory(:post, :category => @category)
+      end
+      
+      it 'should return all the posts' do
+        related_post = Factory(:post, :title => 'Related Post', :category => @category)
+        unrelated_post = Factory(:post, :category => Factory(:category))
+        @post.related_posts.should == [related_post]
+      end
+      
     end
     
   end

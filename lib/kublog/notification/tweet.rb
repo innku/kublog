@@ -9,13 +9,12 @@ module Kublog
         
         base.send :include,       InstanceMethods
         base.send :extend,        ClassMethods
-        
         base.send :include, case Kublog.notification_processing.try(:to_sym)
           when :delayed_job then DelayedJob
           else Immediate
         end
         
-        base.send :after_create,  :notify_tweet
+        base.send :after_save,  :notify_tweet
         base.send :validates_presence_of, :tweet_text, :if => :twitter_notify
         base.send :before_validation, :really_notify_twitter?
       end

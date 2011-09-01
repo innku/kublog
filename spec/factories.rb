@@ -5,7 +5,7 @@ Factory.define :post, :class => Kublog::Post do |f|
 end
 
 Factory.define :category, :class=> Kublog::Category do |f|
-  f.name 'Nuevos Features'
+  f.sequence(:name) { |n| "Nuevos Features #{n}" }
 end
 
 Factory.define :user do |f|

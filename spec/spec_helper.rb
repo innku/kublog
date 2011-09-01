@@ -5,6 +5,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] = "test"
   require 'rubygems'
   require 'bundler/setup'
+  require 'ruby-debug'
 
   require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 

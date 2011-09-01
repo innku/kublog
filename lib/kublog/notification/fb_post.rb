@@ -12,7 +12,7 @@ module Kublog
           else Immediate
         end
         
-        base.send :after_create, :notify_facebook
+        base.send :after_save, :notify_facebook
         base.send :validates_presence_of, :facebook_text, :if => :facebook_notify
         base.send :before_validation, :really_notify_facebook?
       end
