@@ -5,7 +5,13 @@ Factory.define :post, :class => Kublog::Post do |f|
 end
 
 Factory.define :category, :class=> Kublog::Category do |f|
-  f.sequence(:name) { |n| "Nuevos Features #{n}" }
+  f.sequence(:name) { |n| "#{rand(n*1000)} Nuevos Features" }
+end
+
+Factory.define :notification, :class=> Kublog::Notification  do |f|
+  f.kind    'Twitter'
+  f.content 'Awesome post just published'
+  f.association :post, :factory => :post
 end
 
 Factory.define :user do |f|
@@ -14,3 +20,4 @@ Factory.define :user do |f|
   f.password  'secret'
   f.password_confirmation  'secret'
 end
+

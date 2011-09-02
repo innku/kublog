@@ -16,52 +16,19 @@
       <%= f.label :category_id %> <br />
       <%= select_tag 'post[category_id]', category_options(post).html_safe %>
     </div>
-    <%= render "email_form", :f => f %>
     <%= render 'image_form' %>
   </div>
   
   <div class='sharing-attributes'>
-    
     <div class='field'>
-      <%= f.check_box :twitter_notify, :class => 'trigger-optional', :checked => post.new_record? %> 
-      <%= f.label :twitter_notify %>
-      <div class='optional' style='<%= display? post.new_record? %>'>
-        <span class='chars_left'>129</span>
-        <%= f.text_area :tweet_text, :rows => 5, :cols => 10, :maxlength => 129, :value => '', 
-                        :disabled => !post.new_record?, :class => 'small mimic' %> 
-        <small><%= t('.link_to_tweet')  %></small>
-      </div>
-    </div>
-
-    <div class='field'>
-      <%= f.check_box :facebook_notify, :class => 'trigger-optional', 
-                      :checked => post.new_record? %> 
-      <%= f.label :facebook_notify %>
-      <div class='optional' style='<%= display? post.new_record? %>'>
-        <%= f.text_area :facebook_text, :rows => 5, :cols => 10, :value => '', 
-                        :disabled => !post.new_record?, :class => 'small mimic' %>
-        <small><%= t('.link_to_facebook')  %></small>
-      </div>
-    </div>
-
-    <div class='field'>
-      <%= f.check_box :email_notify, :class => 'trigger-optional', :checked => false %> 
-      <%= f.label :email_notify %>
-      <% unless user_kinds.empty?  %>
-        <div class='optional'>
-          <ul>
-            <% user_kinds.each do |user_kind|%>
-              <li>
-                <%= check_box_tag "post[intended_for][]", user_kind, nil, 
-                                  :id => "post_intended_for_#{user_kind}" %>
-                <%= label_tag "post_intended_for_#{user_kind}", user_kind.titleize %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+      <%= f.fields_for :notifications do |nf| %>
+        <%= render "email_form", :nf => nf, :f => f %>
+        <%= nf.hidden_field :kind %>
+        <%= nf.check_box    :email_notify, :class => 'trigger-optional', :checked => false, 
+                            :class => 'email_checkbox' %> 
+        <%= nf.label        :email_notify %>
       <% end %>
     </div>
-    
   </div>
   
   <div class='submit field'>

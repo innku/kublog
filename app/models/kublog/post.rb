@@ -2,12 +2,13 @@
 module Kublog
   class Post < ActiveRecord::Base
     extend FriendlyId
-    include Notification::Email, Notification::Tweet, Notification::FbPost
+    #include Notifiable::Email, Notifiable::Tweet, Notifiable::FbPost
     
     #Associations
-    belongs_to                :user, :class_name => Kublog.author_class
+    belongs_to                :user,          :class_name => Kublog.author_class
     belongs_to                :category
-    has_many                  :comments, :dependent => :destroy
+    has_many                  :comments,      :dependent => :destroy
+    has_many                  :notifications, :dependent => :nullify
     
     validates_presence_of     :title, :body, :user
     validate                  :body_with_content
@@ -18,6 +19,8 @@ module Kublog
     
     #Scopes
     default_scope             order('kublog_posts.created_at DESC')
+    
+    accepts_nested_attributes_for :notifications
     
     def author
       user.to_s

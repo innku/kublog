@@ -6,8 +6,8 @@ $(document).ready ->
 	  hideOnOverlayClick: false
 	  onComplete: ->
 	    textarea_html = $('#post_email_body').parent().html()
-	    $('#post_email_body').data('prewysiwyg', textarea_html)
-	    $('#post_email_body').wysiwyg(wysiwyg.email_controls)
+	    $('.email_content').data('prewysiwyg', textarea_html)
+	    $('.email_content').wysiwyg(wysiwyg.email_controls)
 	  onClosed: -> 
 	    $('form.post_form').submit() if $('#post_email_body').data('ready')?
 	    textarea_html = $('#post_email_body').data('prewysiwyg')
@@ -15,8 +15,10 @@ $(document).ready ->
       
   ## Calls Lightbox if User still decides to notify via E-mail
   $('#kublog .post_form').submit ->
-    if $('#post_email_notify').attr('checked')? && not $('#post_email_body').data('ready')
-      $('#post_email_body').val($(this).data('post').email_body)
+    $email_checkbox = $('.email_checkbox')
+    $email_content = $('.email_content')
+    if $email_checkbox.attr('checked')? && not $email_content.data('ready')
+      $email_content.val($(this).data('post'))
       $('#link-to-email-template').click()
       return false
     else

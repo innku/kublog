@@ -6,6 +6,5 @@ gemspec
 gem 'delayed_job'
 
 # Development Gems
-gem 'rspec'
-gem 'spork'
+gem 'rspec-rails'
 gem 'ruby-debug19', :require => 'ruby-debug'

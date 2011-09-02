@@ -21,15 +21,11 @@ $(document).ready ->
   # check doesn't care if editing or creating new post
   $('#kublog #create_post_button').click ->
     resetErrors()
-    post_data = $(this).closest('form').first().serialize()
-    $.post "#{kublogPath}posts/check.json", post_data, (data) ->
+    post = { post: {title: $('#post_title').val(), body: $('#post_body').val() } }
+    $.post "#{kublogPath}notifications/preview.json", post, (data) ->
       $form = $('#kublog .post_form')
-      $form.data('post', data)
+      $form.data('post', data.preview)
       $form.submit()
-      return true
-    .error (response)->
-      errors =  JSON.parse(response.responseText)
-      setErrors('post', errors)
     return false
     
 # Handle on Event

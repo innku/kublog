@@ -1,9 +1,9 @@
 class CreateKublogPosts < ActiveRecord::Migration
+  
   def change
     create_table :kublog_posts do |t|
       t.string      :title
       t.text        :body
-      t.integer     :users_notified, :default => 0
       t.references  :user
       t.references  :category
       t.string      :intended_for

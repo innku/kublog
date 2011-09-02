@@ -14,6 +14,7 @@ module Kublog
     
     def new
       @post = Post.new
+      @post.notifications.build(:kind => 'email')
     end
     
     def show

@@ -6,6 +6,7 @@ module Kublog
   module Notifiable
     
     def self.included(base)
+      Kublog.notify_class = base.name
       base.class_eval do
         @@kublog_notifiable = true
         cattr_accessor :kublog_notifiable

@@ -3,7 +3,7 @@
   <div id="email-template">
     <h2><%= t('.format_email') %></h2>
     <div class='field'>
-      <%= f.text_area      :email_body %>
+      <%= nf.text_area      :content, :class => 'email_content' %>
     </div>
     <div class='field'>
       <%= f.submit :id => 'email_submit'  %> <%= t('.or') %>

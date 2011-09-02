@@ -16,14 +16,10 @@ module Kublog
   
   autoload   :Notifiable, 'kublog/notifiable'
   autoload   :Author,     'kublog/author'
+  autoload   :Processor,  'kublog/processor'
   
-  module Notification
-    autoload :Email,      'kublog/notification/email'
-    autoload :EmailJob,   'kublog/notification/email_job'
-    autoload :Tweet,      'kublog/notification/tweet'
-    autoload :TweetJob,   'kublog/notification/tweet_job'
-    autoload :FbPost,     'kublog/notification/fb_post'
-    autoload :FbPostJob,  'kublog/notification/fb_post_job'
+  module Network
+    autoload :Email,      'kublog/network/email'
   end
   
   module XhrUpload
@@ -49,6 +45,9 @@ module Kublog
   
   mattr_accessor :author_class
   @@author_class =  'User'
+  
+  mattr_accessor :notify_class
+  @@notify_class =  'User'
   
   def self.notification_processing=(method='')
     @@notification_processing = method.to_sym

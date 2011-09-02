@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110822194341) do
+ActiveRecord::Schema.define(:version => 20110901205127) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -60,10 +60,22 @@ ActiveRecord::Schema.define(:version => 20110822194341) do
     t.datetime "updated_at"
   end
 
+  create_table "kublog_notifications", :force => true do |t|
+    t.string   "kind"
+    t.text     "content"
+    t.integer  "provider_id"
+    t.integer  "post_id"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.integer  "times_delivered", :default => 0
+  end
+
+  add_index "kublog_notifications", ["kind"], :name => "index_kublog_notifications_on_kind"
+  add_index "kublog_notifications", ["post_id"], :name => "index_kublog_notifications_on_post_id"
+
   create_table "kublog_posts", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "users_notified", :default => 0
     t.integer  "user_id"
     t.integer  "category_id"
     t.string   "intended_for"

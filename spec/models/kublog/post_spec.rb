@@ -20,12 +20,6 @@ module Kublog
       Factory.build(:post, :user_id => nil)
     end
     
-    it 'saves intended users as an array' do
-      user_types = [:shipper, :carriers, :logistics]
-      post = Factory(:post, :intended_for => user_types)
-      post.reload.intended_for.should == user_types
-    end
-    
     describe '#author' do
       it 'is a proxy for the users to_s method' do
         user = Factory.build :user
@@ -63,7 +57,7 @@ module Kublog
       
       it 'should return all the posts' do
         related_post = Factory(:post, :title => 'Related Post', :category => @category)
-        unrelated_post = Factory(:post, :category => Factory(:category))
+        unrelated_post = Factory(:post)
         @post.related_posts.should == [related_post]
       end
       
