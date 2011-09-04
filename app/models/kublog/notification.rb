@@ -1,6 +1,6 @@
 module Kublog
-  class Notification < ActiveRecord::Base
-    include Network::Email
+  class Notification < ActiveRecord::Base    
+    include Network::Email, Network::Facebook, Network::Twitter
     
     belongs_to :post
     
@@ -8,6 +8,12 @@ module Kublog
     
     after_create  :deliver
     serialize     :roles, Hash
+    
+    delegate      :title, :url, :to => :post
+        
+    def default?
+      self.send "default_#{kind}"
+    end
     
     private
     

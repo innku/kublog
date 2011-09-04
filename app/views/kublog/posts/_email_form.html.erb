@@ -1,13 +1,19 @@
-<div style='display:none'>
-  <%= link_to '#', '#email-template', :class => 'submit_fancybox', :id => 'link-to-email-template' %>
-  <div id="email-template">
-    <h2><%= t('.format_email') %></h2>
-    <div class='field'>
-      <%= nf.text_area      :content, :class => 'email_content' %>
-    </div>
-    <div class='field'>
-      <%= f.submit :id => 'email_submit'  %> <%= t('.or') %>
-      <%= link_to t('.cancel'), '#', :id => 'email_cancel' %>
+<div class='field'>
+  <%= check_box_tag   :email_notify, 1, notification.default?, 
+                      :checked => false, :class => 'email_checkbox' %>
+  <%= label_tag       :email_notify %>                        
+  <div style='display:none' class='optional'>
+    <%= nf.hidden_field :kind, :disabled => !notification.default? %>
+    <%= link_to '#', '#email-template', :class => 'submit_fancybox', :id => 'link-to-email-template' %>
+    <div id="email-template">
+      <h2><%= t('.format_email') %></h2>
+      <div class='field'>
+        <%= nf.text_area :content, :class => 'email_content', :disabled => !notification.default? %>
+      </div>
+      <div class='field'>
+        <%= submit_tag t('.send_email'), :id => 'email_submit'  %> <%= t('.or') %>
+        <%= link_to t('.cancel'), '#', :id => 'email_cancel' %>
+      </div>
     </div>
   </div>
 </div>

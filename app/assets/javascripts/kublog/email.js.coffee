@@ -1,17 +1,25 @@
 $(document).ready ->
   
+  ### Special Optional fields are not shown on check, but only enabled ###
+  $('#kublog .email_checkbox').change ->
+    $optional = $(this).siblings('.optional')
+    if $(this).attr('checked')?
+      $optional.find('[disabled]').attr('disabled', false)
+    else
+      $optional.find('textarea, input').attr('disabled', true)
+  
   ## Notification Preview
   $('#kublog .submit_fancybox').fancybox
 	  showCloseButton: false
 	  hideOnOverlayClick: false
 	  onComplete: ->
-	    textarea_html = $('#post_email_body').parent().html()
+	    textarea_html = $('.email_content').parent().html()
 	    $('.email_content').data('prewysiwyg', textarea_html)
 	    $('.email_content').wysiwyg(wysiwyg.email_controls)
 	  onClosed: -> 
-	    $('form.post_form').submit() if $('#post_email_body').data('ready')?
-	    textarea_html = $('#post_email_body').data('prewysiwyg')
-	    $('#post_email_body').parent().html(textarea_html)
+	    $('form.post_form').submit() if $('.email_content').data('ready')?
+	    textarea_html = $('.email_content').data('prewysiwyg')
+	    $('.email_content').parent().html(textarea_html)
       
   ## Calls Lightbox if User still decides to notify via E-mail
   $('#kublog .post_form').submit ->
@@ -26,7 +34,7 @@ $(document).ready ->
 
   ## Confirms Notification text and readies for submission
   $('#kublog #email_submit').click ->
-    $('#post_email_body').data('ready', true)
+    $('.email_content').data('ready', true)
     $.fancybox.close()
 
   ## Aborts notification Submission

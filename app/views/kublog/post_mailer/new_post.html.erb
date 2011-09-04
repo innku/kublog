@@ -1,2 +1,2 @@
 <%= Liquid::Template.parse(@email.body).render('user' => @user.to_s,
-                                               'url'  => @post.url).html_safe %>
+                                               'url'  => @email.url).html_safe %>

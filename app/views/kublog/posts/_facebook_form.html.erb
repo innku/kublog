@@ -1,0 +1,10 @@
+<div class='field'>
+  <%= check_box_tag :facebook_notify, 1, notification.default?, :class => 'trigger-optional' %> 
+  <%= label_tag     :facebook_notify %>
+  <div class='optional' style='<%= display?(notification.default?) %>'>
+    <%= nf.hidden_field :kind, :disabled => !notification.default? %>
+    <%= nf.text_area    :content, :rows => 5, :cols => 10, :value => '', 
+                        :disabled => !notification.default?, :class => 'small mimic' %>
+    <small><%= t('.link_to_facebook')  %></small>
+  </div>
+</div>

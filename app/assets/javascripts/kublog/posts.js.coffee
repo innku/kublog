@@ -17,10 +17,10 @@ $(document).ready ->
     else
       $optional.hide().find('textarea, input').attr('disabled', true)
   
+  
   ### Validates the form through AJAX on server Side ###
   # check doesn't care if editing or creating new post
   $('#kublog #create_post_button').click ->
-    resetErrors()
     post = { post: {title: $('#post_title').val(), body: $('#post_body').val() } }
     $.post "#{kublogPath}notifications/preview.json", post, (data) ->
       $form = $('#kublog .post_form')

@@ -20,6 +20,8 @@ module Kublog
   
   module Network
     autoload :Email,      'kublog/network/email'
+    autoload :Facebook,   'kublog/network/facebook'
+    autoload :Twitter,    'kublog/network/twitter'
   end
   
   module XhrUpload

@@ -13,8 +13,7 @@ module Kublog
     end
     
     def new
-      @post = Post.new
-      @post.notifications.build(:kind => 'email')
+      @presenter = PostFormPresenter.new(Post.new)
     end
     
     def show
@@ -22,18 +21,18 @@ module Kublog
       @presenter = PostPresenter.new(post)
     end
     
-    #TODO: Figure out a proxy method to access User
     def create
       @post = current_user.posts.build(params[:post])
       if @post.save
         redirect_to @post
       else
+        @presenter = PostFormPresenter.new(@post)
         render 'new'
       end
     end
     
     def edit
-      @post = Post.find(params[:id])
+      @presenter = PostFormPresenter.new(Post.find(params[:id]))
     end
     
     def update
@@ -41,6 +40,7 @@ module Kublog
       if @post.update_attributes(params[:post])
         redirect_to @post
       else
+        @presenter = PostFormPresenter.new(@post)
         render 'edit'
       end
     end
@@ -49,17 +49,6 @@ module Kublog
       @post = Post.find(params[:id])
       @post.destroy
       redirect_to posts_path
-    end
-    
-    def check
-      @post = current_user.posts.build(params[:post])
-      respond_to do |format|
-        if @post.valid?
-          format.json { render :json => @post }
-        else
-          format.json { render :json => @post.errors.messages, :status => :unprocessable_entity }
-        end
-      end
     end
     
   end

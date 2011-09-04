@@ -9,7 +9,6 @@ module Kublog
       TEMPLATE = "app/views/kublog/post_mailer/new_post.liquid.html.erb"
       
       def self.included(base)
-        base.send :attr_accessor, :email_notify
         base.send :include, InstanceMethods
         base.send :extend,  ClassMethods
       end
@@ -22,6 +21,10 @@ module Kublog
         
         def kublog_email?(role)
           roles.include?(role)
+        end
+        
+        def default_email
+          false
         end
         
       end
@@ -53,20 +56,29 @@ module Kublog
           klass = eval(Kublog.notify_class)        
           klass.all.each do |user|
             if user.notify_post?(@post)
-              Processor.work(SingleEmail.new(self, user))
+              Processor.work(SingleEmail.new(@notification, user))
             end
           end
         end
+        
       end
       
       class SingleEmail
-        def initialize(email, user)
-          @email = email
+        
+        attr_accessor :subject, :body, :post, :url
+        
+        def initialize(notification, user)
+          @subject = notification.title
+          @body = notification.content
+          @post = notification.post
+          @url =  notification.url
           @user = user
         end   
+        
         def perform
-          PostMailer.new_post(@email, @user).deliver
+          PostMailer.new_post(self, @user).deliver
         end
+        
       end
       
     end
