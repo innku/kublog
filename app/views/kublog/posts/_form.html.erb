@@ -1,5 +1,7 @@
 <%= form_for post, :html => {:class => 'post_form'} do |f| %>
   
+  <%= error_messages_for post %>
+  
   <div class="main-attributes">
     
     <div class='field'>
