@@ -1,15 +1,41 @@
-$(document).ready ->
+## Starts to make js object-oriented
+class KublogPost
+  constructor: ->
+    @title = $('#post_title')
+    @body = $('#post_body')
+    
+  validateTitle: ->
+    return if @title.val() isnt ""
+    @addError('title',"can't be blank")
+    
+  validateBody: ->
+    return if $(@body.val()).text().trim() isnt "" 
+    @addError('body',"can't be blank")
   
-  ## Editor for Post Body
+  validate: ->
+    @errors = undefined
+    @validateTitle()
+    @validateBody()
+    @errors is undefined
+    
+  addError: (attr, error)->
+    @errors ?= {}
+    @errors[attr] = [error]
+
+window.KublogPost = KublogPost
+
+$(document).ready ->
+  # Jquery Wysiwyg editor with default configuration
   $('#kublog .editor').wysiwyg(wysiwyg.default_controls)
          
-  ### Twitter Char Counter Event ###
+  # Counts twitter chars as a limit of 139
+  # limit is given to include a shortened version of the link to post
   $('#kublog textarea[maxlength]').keyup(charCounter).keyup()
   
-  ### Twitter and Facebook Post Cloning Event ###
+  # Clones title content into twitter and facebook messages
   $('#kublog .original').keyup(mimicTitle).keyup()
   
-  ### Optional Hidden Fields (Currently E-mail notifications, Twitter and Facebook) ###
+  # Server optional Hidden Fields (Currently Twitter and Facebook)
   $('#kublog .trigger-optional').change ->
     $optional = $(this).siblings('.optional')
     if $(this).attr('checked')?
@@ -17,18 +43,23 @@ $(document).ready ->
     else
       $optional.hide().find('textarea, input').attr('disabled', true)
   
-  
-  ### Validates the form through AJAX on server Side ###
-  # check doesn't care if editing or creating new post
+  # Gets the E-mail preview of the post
+  # ready for editing using a liquid template
   $('#kublog #create_post_button').click ->
-    post = { post: {title: $('#post_title').val(), body: $('#post_body').val() } }
-    $.post "#{kublogPath}notifications/preview.json", post, (data) ->
-      $form = $('#kublog .post_form')
-      $form.data('post', data.preview)
-      $form.submit()
+    post = new KublogPost()
+    window.resetErrors()
+    if post.validate()
+      getEmailPreview()
+    else
+      window.setErrors('post', post.errors)
     return false
-    
-# Handle on Event
+
+getEmailPreview = ->
+  post = { post: {title: $('#post_title').val(), body: $('#post_body').val() } }
+  $.post "#{kublogPath}notifications/preview.json", post, (data) ->
+    $form = $('#kublog .post_form')
+    $form.data('post', data.preview)
+    $form.submit()
 
 charCounter = ->
   $chars_left_display = $(this).siblings('.chars_left')

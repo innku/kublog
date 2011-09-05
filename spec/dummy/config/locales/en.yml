@@ -21,22 +21,31 @@ en:
       form:
         or: 'or'
         cancel: 'cancel'
-        format_email: 'Format E-Mail'
-        link_to_tweet: 'A link to this post will be appended'
-        link_to_facebook: "Will be published as link to this post"
       image_form:
         insert_image: 'Insert Image'
         or: 'or'
         cancel: 'cancel'
         insert_size: 'Size'
         alt: 'Alt Text'
+      email_form:
+        email_notification: 'E-mail Notification'
+        or: 'or'
+        format_email: 'Format E-Mail'
+        cancel: 'cancel'
+        send_email: 'Send E-mail'
+      facebook_form:
+        facebook_notification: 'Facebook Notification'
+        link_to_facebook: "Will be published as link to this post"
+      twitter_form:
+        twitter_notification: 'Twitter Notification'
+        link_to_twitter: 'A link to this post will be appended'
     post_mailer:
       new_post:
         greetings: 'Greetings'
         read_more: 'Read More'
   activerecord:
     models:
-      'kublog/opst': 'Post'
+      'kublog/post': 'Post'
     attributes:
       'kublog/post':
         title: 'Title'
@@ -45,6 +54,14 @@ en:
       'kublog/comment':
         author_name: 'Name'
         author_email: 'E-mail'
+    errors:
+      models:
+        'kublog/notification':
+          attributes:
+            content:
+              twitter: "twitter message can't be blank"
+              facebook: "facebook message can't be blank"
+              email: "email message can't be blank"
   helpers:
     label:
       post:

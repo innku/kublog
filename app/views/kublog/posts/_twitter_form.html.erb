@@ -1,11 +1,11 @@
 <div class='field'>
   <%= check_box_tag :twitter_notify, 1, notification.default?, :class => 'trigger-optional' %> 
-  <%= label_tag     :twitter_notify %>
+  <%= label_tag     :twitter_notify, t('.twitter_notification') %>
   <div class='optional' style='<%= display?(notification.default?) %>'>
     <span class='chars_left'>129</span>
     <%= nf.hidden_field :kind, :disabled => !notification.default? %>
     <%= nf.text_area    :content, :rows => 5, :cols => 10, :maxlength => 129, :value => '', 
                         :disabled => !notification.default?, :class => 'small mimic' %> 
-    <small><%= t('.link_to_tweet')  %></small>
+    <small><%= t('.link_to_twitter')  %></small>
   </div>
 </div>

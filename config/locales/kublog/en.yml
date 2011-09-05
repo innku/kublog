@@ -30,6 +30,9 @@ en:
         cancel: 'cancel'
         insert_size: 'Size'
         alt: 'Alt Text'
+      email_form:
+        notify: 'Notify by E-mail'
+        or: 'or'
     post_mailer:
       new_post:
         greetings: 'Greetings'

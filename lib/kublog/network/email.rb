@@ -11,6 +11,7 @@ module Kublog
       def self.included(base)
         base.send :include, InstanceMethods
         base.send :extend,  ClassMethods
+        base.send :validate, :valid_email_content, :if => :email?
       end
       
       module InstanceMethods 
@@ -25,6 +26,16 @@ module Kublog
         
         def default_email
           false
+        end
+        
+        def email?
+          self.kind == 'email'
+        end
+        
+        private
+        
+        def valid_email_content
+          errors.add(:content, :email) if self.content.blank?
         end
         
       end

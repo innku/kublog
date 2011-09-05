@@ -1,7 +1,7 @@
 <div class='field'>
   <%= check_box_tag   :email_notify, 1, notification.default?, 
                       :checked => false, :class => 'email_checkbox' %>
-  <%= label_tag       :email_notify %>                        
+  <%= label_tag       :email_notify, t('.email_notification') %>                        
   <div style='display:none' class='optional'>
     <%= nf.hidden_field :kind, :disabled => !notification.default? %>
     <%= link_to '#', '#email-template', :class => 'submit_fancybox', :id => 'link-to-email-template' %>

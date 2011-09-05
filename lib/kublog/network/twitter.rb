@@ -1,11 +1,10 @@
-# Includes functionality to send to twitter on after_create callback
-
 module Kublog
   module Network
     module Twitter
       
       def self.included(base)        
-        base.send :include, InstanceMethods
+        base.send :include,  InstanceMethods
+        base.send :validate, :valid_twitter_content, :if => :twitter?
       end
   
       module InstanceMethods
@@ -16,6 +15,17 @@ module Kublog
         def default_twitter
           post.new_record?
         end
+        
+        def twitter?
+          self.kind == 'twitter'
+        end
+        
+        private
+        
+        def valid_twitter_content
+          errors.add(:content, :twitter) if self.content.blank?
+        end
+        
       end
           
       class Tweet
@@ -31,8 +41,7 @@ module Kublog
           rescue Twitter::NotFound
             nil # Dont do anything for now
           end
-        end
-        
+        end    
       end
     end
   end

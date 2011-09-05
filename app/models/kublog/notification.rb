@@ -4,7 +4,9 @@ module Kublog
     
     belongs_to :post
     
-    validates_presence_of :kind, :content
+    # Presence of content should be responsability
+    # Of each network module
+    validates_presence_of :kind
     
     after_create  :deliver
     serialize     :roles, Hash

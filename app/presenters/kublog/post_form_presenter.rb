@@ -6,9 +6,9 @@ module Kublog
     def initialize(post)
       @post  = post
       @notifications = []
-      @notifications << notification('email')
-      @notifications << notification('facebook')
       @notifications << notification('twitter')
+      @notifications << notification('facebook')
+      @notifications << notification('email')
     end
     
     def notification(kind)

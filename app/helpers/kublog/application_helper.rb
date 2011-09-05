@@ -1,5 +1,7 @@
 module Kublog
   module ApplicationHelper
+    
+    ## Nifty generators errors helper code
     def error_messages_for(*objects)
       options = objects.extract_options!
       options[:header_message] ||= I18n.t(:"activerecord.errors.header", :default => "Invalid Fields")
@@ -12,5 +14,6 @@ module Kublog
         end
       end
     end
+    
   end
 end
