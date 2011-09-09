@@ -31,6 +31,11 @@ module Kublog
           self.kind == 'email'
         end
         
+        def delivered
+          self.times_delivered ||= 0
+          self.update_attribute :times_delivered, (self.times_delivered + 1)
+        end
+        
         private
         
         def valid_email_content
@@ -87,6 +92,7 @@ module Kublog
         
         def initialize(notification, user)
           @subject = notification.title
+          @notification = notification
           @body = notification.content
           @post = notification.post
           @url =  notification.url
@@ -95,9 +101,10 @@ module Kublog
         
         # Sends a single e-mail to the user
         def perform
-          PostMailer.new_post(self, @user).deliver
+          PostMailer.new_post(self, @post, @user).deliver
+          @notification.delivered
         end
-        
+                
       end
       
     end

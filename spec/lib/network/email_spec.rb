@@ -42,6 +42,22 @@ module Kublog::Network
         @notification.default_email.should == false
       end
     end
+    
+    describe '#delivered' do
+      before(:all) do
+        @notification = Factory(:email_notification)
+      end
+      it 'increases the number of delivered times' do
+        @notification.update_attribute :times_delivered, 0
+        @notification.delivered
+        @notification.times_delivered.should == 1
+      end
+      it 'increases to 1 if delivered times is nil' do
+        @notification.update_attribute :times_delivered, nil
+        @notification.reload.delivered
+        @notification.times_delivered.should == 1
+      end
+    end
   
     describe '#after_create' do
       it 'sends emails to all users when notify_post? is default true' do
