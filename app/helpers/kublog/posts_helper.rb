@@ -34,5 +34,9 @@ module Kublog
       comment.admin? ? 'admin' : ''
     end
     
+    def atom_url(presenter)
+      presenter.category.nil? ? posts_url(:format => :atom) : category_url(presenter.category, :format => :atom)
+    end
+    
   end
 end

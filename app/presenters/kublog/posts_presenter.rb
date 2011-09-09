@@ -1,6 +1,8 @@
 module Kublog
   class PostsPresenter
     
+    attr_accessor :category
+    
     def initialize(category=nil)
       @category = category
     end

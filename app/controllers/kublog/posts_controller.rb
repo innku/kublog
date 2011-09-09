@@ -8,7 +8,7 @@ module Kublog
       respond_to do |format|
         format.html { }
         format.atom { render :layout => false }
-        format.rss  { redirect_to posts_path(:format => :atom), :status => :moved_permanently }
+        format.rss  { render :layout => false  }
       end
     end
     

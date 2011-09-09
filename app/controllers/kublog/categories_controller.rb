@@ -8,7 +8,7 @@ module Kublog
       @presenter = PostsPresenter.new(@category)
       respond_to do |format|
         format.atom { render "/kublog/posts/index", :layout => false }
-        format.rss  { redirect_to category_path(@category, :format => :atom), :status => :moved_permanently }
+        format.rss  { render "/kublog/posts/index", :layout => false  }
         format.html { render "/kublog/posts/index" }
       end
     end

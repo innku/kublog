@@ -70,3 +70,7 @@ en:
         email_notify: 'Notify users via E-mail'
         twitter_notify: 'Notify users via Twitter'
         facebook_notify: 'Notify users via Facebook'
+    submit:
+      'kublog/comment':
+        create: 'Comment'
+        update: 'Update comment'
