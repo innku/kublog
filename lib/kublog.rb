@@ -7,6 +7,7 @@ require "friendly_id"
 require "carrierwave"
 require "RMagick"
 require "liquid"
+require "sanitize"
 
 require "kublog/engine"
 require "kublog/version"
