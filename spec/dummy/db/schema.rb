@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20110901205127) do
     t.string   "email"
     t.string   "password_digest"
     t.boolean  "admin",           :default => false
+    t.string   "kind",            :default => "semi-cool"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

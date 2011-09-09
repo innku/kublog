@@ -71,9 +71,9 @@ module Kublog
         # calls notify_post? on every user to determine whether or not
         # to send e-mail
         def perform
-          klass = eval(Kublog.notify_class)        
+          klass = eval(Kublog.notify_class)    
           klass.all.each do |user|
-            if user.notify_post?(@post)
+            if user.notify_post?(@notification.roles)
               Processor.work(SingleEmail.new(@notification, user))
             end
           end

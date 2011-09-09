@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :email
       t.string  :password_digest
       t.boolean :admin, :default => false
+      t.string  :kind, :default => 'semi-cool'
       t.timestamps
     end
   end

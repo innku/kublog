@@ -18,8 +18,16 @@ module Support
   
   def self.dont_notify_users_by_default
     User.class_eval do
-      def notify_post?(post)
+      def notify_post?(roles)
         false
+      end
+    end
+  end
+  
+  def self.notify_select_users
+    User.class_eval do
+      def notify_post?(roles)
+        roles.include?(self.kind)
       end
     end
   end

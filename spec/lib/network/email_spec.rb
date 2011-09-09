@@ -77,9 +77,19 @@ module Kublog::Network
         
         it 'sends e-mail to no users when notify_post? defaults to false' do
           Support.dont_notify_users_by_default
-          @bulk_email.perform
           Kublog::Processor.should_not_receive(:work)
+          @bulk_email.perform
         end
+        
+        it 'evaluates notify_post? before sending e-mails' do
+          Support.notify_select_users
+          Factory(:user, :kind => 'cool')
+          notification = Factory.build(:email_notification, :roles => ['cool'])
+          bulk_email = Email::BulkEmail.new(notification)
+          Kublog::Processor.should_receive(:work).once
+          bulk_email.perform
+        end
+        
       end
     end
     

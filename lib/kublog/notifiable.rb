@@ -14,7 +14,7 @@ module Kublog
     # If User Kinds are being used, this should be
     # Overriden
     module InstanceMethods
-      def notify_post?(post)
+      def notify_post?(roles)
         true
       end
     end
