@@ -4,7 +4,7 @@ xml.rss :version => "2.0" do
     xml.tag!("atom:link", 'xmlns:atom' => 'http://www.w3.org/2005/Atom', 
              :rel => 'hub', :href => atom_url(@presenter))
     xml.title @presenter.title
-    xml.description @presenter.title
+    xml.description @presenter.description
     xml.link root_url
     @presenter.posts.each do |post|
       xml.item do

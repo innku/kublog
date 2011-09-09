@@ -19,6 +19,10 @@ module Kublog
       @title ||= @category.nil? ? Kublog.blog_name : "#{@category.name} :: #{Kublog.blog_name}"
     end
     
+    def description
+      @description = @category.nil? ? Kublog.blog_description : "#{@category.name} :: #{Kublog.blog_name} :: #{Kublog.blog_description}"
+    end
+    
     def updated
       self.posts.first.try(:updated_at) - 1.seconds
     end

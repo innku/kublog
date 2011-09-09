@@ -86,6 +86,9 @@ module Kublog
   
   mattr_accessor  :blog_name
   @@blog_name =   'Kublog::Blog'
+  
+  mattr_accessor  :blog_description
+  @@blog_description =   'Some blog'
     
   def self.facebook_page_token=(token)
     @@facebook_client = FbGraph::User.me(token)
