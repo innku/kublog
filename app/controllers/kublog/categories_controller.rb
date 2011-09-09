@@ -7,8 +7,8 @@ module Kublog
       @category = Category.find(params[:id])
       @presenter = PostsPresenter.new(@category)
       respond_to do |format|
-        format.atom { render "/kublog/posts/index", :layout => false }
-        format.rss  { render "/kublog/posts/index", :layout => false  }
+        format.atom { render "/kublog/posts/index", :layout => false, :content_type => 'text/xml' }
+        format.rss  { render "/kublog/posts/index", :layout => false, :content_type => 'text/xml' }
         format.html { render "/kublog/posts/index" }
       end
     end

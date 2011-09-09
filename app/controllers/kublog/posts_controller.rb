@@ -7,8 +7,9 @@ module Kublog
       @presenter = PostsPresenter.new
       respond_to do |format|
         format.html { }
-        format.atom { render :layout => false }
-        format.rss  { render :layout => false  }
+        format.atom { render :layout => false, :content_type => 'text/xml' }
+        format.rss  { render :layout => false, :content_type => 'text/xml' }
+        
       end
     end
     
