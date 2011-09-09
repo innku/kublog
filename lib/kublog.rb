@@ -6,7 +6,6 @@ require "fb_graph"
 require "friendly_id"
 require "carrierwave"
 require "RMagick"
-require "sanitize"
 require "liquid"
 
 require "kublog/engine"
