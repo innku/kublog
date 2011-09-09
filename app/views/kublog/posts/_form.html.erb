@@ -3,22 +3,19 @@
   <%= error_messages_for post %>
   
   <div class="main-attributes">
-    
     <div class='field'>
       <%= f.label :body %><br />
       <%= f.text_area :body, :class => 'editor' %>
+      <%= render 'image_form' %>
     </div>
-
     <div class='field'>
       <%= f.label :title %> <br />
       <%= f.text_field :title, :class => 'original' %>
     </div>
-
     <div class='field'>
       <%= f.label :category_id %> <br />
       <%= select_tag 'post[category_id]', category_options(post).html_safe %>
     </div>
-    <%= render 'image_form' %>
   </div>
   
   <div class='sharing-attributes'>
