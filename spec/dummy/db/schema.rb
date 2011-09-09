@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(:version => 20110901205127) do
     t.text     "body"
     t.integer  "user_id"
     t.integer  "category_id"
-    t.string   "intended_for"
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"

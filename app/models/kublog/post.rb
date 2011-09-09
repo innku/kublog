@@ -13,7 +13,6 @@ module Kublog
     validate                  :body_with_content
     
     #Special Attributes
-    serialize                 :intended_for, Array
     friendly_id               :title, :use => :slugged
     
     #Scopes

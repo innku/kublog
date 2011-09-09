@@ -7,8 +7,7 @@
       <ul>
         <% user_kinds.each do |user_kind|%>
           <li>
-            <%= check_box_tag "#{nf.object_name}[roles][]", user_kind, nil, 
-                              :id => "post_intended_for_#{user_kind}" %>
+            <%= check_box_tag "#{nf.object_name}[roles][]", user_kind, nil %>
             <%= label_tag "#{nf.object_name}[roles][#{user_kind}]", user_kind.titleize %>
           </li>
         <% end %>

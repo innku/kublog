@@ -6,7 +6,6 @@ class CreateKublogPosts < ActiveRecord::Migration
       t.text        :body
       t.references  :user
       t.references  :category
-      t.string      :intended_for
       t.string      :slug
       t.timestamps
     end
