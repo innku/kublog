@@ -6,8 +6,10 @@ $(document).ready ->
     $optional_lightbox = $(this).siblings('.optional_lightbox')
     if $(this).attr('checked')?
       $optional.show().find('[disabled]').attr('disabled', false)
+      $optional.find('input[type=checkbox]').attr('checked',true)
       $optional_lightbox.find('[disabled]').attr('disabled', false)
     else
+      $optional.find('input[type=checkbox]').attr('checked',false)
       $optional.hide().find('textarea, input').attr('disabled', true)
       $optional_lightbox.find('textarea, input').attr('disabled', true)
   
