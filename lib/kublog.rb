@@ -102,5 +102,4 @@ module Kublog
     Engine.routes.url_helpers.root_path
   end
   
-  
 end
