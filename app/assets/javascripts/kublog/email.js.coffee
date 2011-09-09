@@ -3,10 +3,13 @@ $(document).ready ->
   ### Special Optional fields are not shown on check, but only enabled ###
   $('#kublog .email_checkbox').change ->
     $optional = $(this).siblings('.optional')
+    $optional_lightbox = $(this).siblings('.optional_lightbox')
     if $(this).attr('checked')?
-      $optional.find('[disabled]').attr('disabled', false)
+      $optional.show().find('[disabled]').attr('disabled', false)
+      $optional_lightbox.find('[disabled]').attr('disabled', false)
     else
-      $optional.find('textarea, input').attr('disabled', true)
+      $optional.hide().find('textarea, input').attr('disabled', true)
+      $optional_lightbox.find('textarea, input').attr('disabled', true)
   
   ## Notification Preview
   $('#kublog .submit_fancybox').fancybox

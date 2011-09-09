@@ -9,8 +9,39 @@ Factory.define :category, :class=> Kublog::Category do |f|
 end
 
 Factory.define :notification, :class=> Kublog::Notification  do |f|
-  f.kind    'Twitter'
+  f.kind    'fake_kind'
   f.content 'Awesome post just published'
+  f.association :post, :factory => :post
+end
+
+Factory.define :twitter_notification, :class => Kublog::Notification do |f|
+  f.kind 'twitter'
+  f.content 'tweet content'
+  f.association :post, :factory => :post
+end
+
+Factory.define :facebook_notification, :class => Kublog::Notification do |f|
+  f.kind 'facebook'
+  f.content 'wall post content'
+  f.association :post, :factory => :post
+end
+
+Factory.define :email_notification, :class => Kublog::Notification do |f|
+  f.kind 'email'
+  f.content 'email content for {{user}} with a link to the post {{link}}'
+  f.association :post, :factory => :post
+end
+
+Factory.define :user_comment, :class => Kublog::Comment do |f|
+  f.body 'Great stuff on the blog'
+  f.association :user, :factory => :user
+  f.association :post, :factory => :post
+end
+
+Factory.define :anonymous_comment, :class => Kublog::Comment do |f|
+  f.body 'Great stuff on the site'
+  f.author_name 'Adrian Cuadros'
+  f.author_email 'adrian@innku.com'
   f.association :post, :factory => :post
 end
 

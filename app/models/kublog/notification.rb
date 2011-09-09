@@ -9,7 +9,7 @@ module Kublog
     validates_presence_of :kind
     
     after_create  :deliver
-    serialize     :roles, Hash
+    serialize     :roles, Array
     
     delegate      :title, :url, :to => :post
         
@@ -20,7 +20,7 @@ module Kublog
     private
     
     def deliver
-      self.send "deliver_#{kind}"
+      self.send "deliver_#{kind}" if respond_to?("deliver_#{kind}")
     end
     
   end

@@ -99,10 +99,6 @@ module Kublog
     yield @@twitter_client
   end
   
-  def self.asset_path(path)
-    ["/assets", self.root_path , path].join
-  end
-  
   def self.root_path
     Engine.routes.url_helpers.root_path
   end

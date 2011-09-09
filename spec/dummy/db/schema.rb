@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20110901205127) do
     t.integer  "post_id"
     t.datetime "sent_at"
     t.datetime "created_at"
+    t.text     "roles"
     t.integer  "times_delivered", :default => 0
   end
 

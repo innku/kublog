@@ -1,8 +1,21 @@
 <div class='field'>
   <%= check_box_tag   :email_notify, 1, notification.default?, 
                       :checked => false, :class => 'email_checkbox' %>
-  <%= label_tag       :email_notify, t('.email_notification') %>                        
-  <div style='display:none' class='optional'>
+  <%= label_tag       :email_notify, t('.email_notification') %>     
+  <% unless user_kinds.empty?  %>
+    <div class='optional'>
+      <ul>
+        <% user_kinds.each do |user_kind|%>
+          <li>
+            <%= check_box_tag "#{nf.object_name}[roles][]", user_kind, nil, 
+                              :id => "post_intended_for_#{user_kind}" %>
+            <%= label_tag "#{nf.object_name}[roles][#{user_kind}]", user_kind.titleize %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>                     
+  <div style='display:none' class='optional_lightbox'>
     <%= nf.hidden_field :kind, :disabled => !notification.default? %>
     <%= link_to '#', '#email-template', :class => 'submit_fancybox', :id => 'link-to-email-template' %>
     <div id="email-template">

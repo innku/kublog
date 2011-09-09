@@ -1,6 +1,5 @@
-# Module to be included in user that enables him to be
-# published in Posts
-
+# Include module in the model to be referenced as author in the post
+# Gives the author an association to every post he has published
 module Kublog
   module Author
     

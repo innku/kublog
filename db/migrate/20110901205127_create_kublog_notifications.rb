@@ -8,6 +8,7 @@ class CreateKublogNotifications < ActiveRecord::Migration
       t.references  :post
       t.datetime    :sent_at
       t.datetime    :created_at
+      t.text        :roles
       t.integer     :times_delivered, :default => 0
     end
     

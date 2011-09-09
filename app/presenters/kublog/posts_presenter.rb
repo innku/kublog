@@ -18,7 +18,7 @@ module Kublog
     end
     
     def updated
-      self.posts.first.try(:updated_at)
+      self.posts.first.try(:updated_at) - 1.seconds
     end
     
     def ftime(updated)

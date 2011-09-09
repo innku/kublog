@@ -1,3 +1,6 @@
+# Non mandatory single category for a post
+# implements friendly_id search and json defaults
+# for ajax editing
 module Kublog
   class Category < ActiveRecord::Base
     extend FriendlyId
@@ -13,13 +16,18 @@ module Kublog
       self.name.titleize
     end
     
-    # Site access to the category
-    def path
-      Engine.routes.url_helpers.category_path(self)
+    # Includes a path to the category by default
+    # helps reference back to edited categories in
+    # json requests
+    def as_json(params={})
+      params||={}
+      super(params.merge!({:methods => [:path]}))
     end
     
-    def as_json(params={})
-      super params.merge({:methods => [:path]})
+    protected
+    
+    def path
+      Engine.routes.url_helpers.category_path(self)
     end
     
   end

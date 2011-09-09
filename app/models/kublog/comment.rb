@@ -15,21 +15,21 @@ module Kublog
       return self.user.to_s
     end
     
-    # Site access to the category
-    def path
-      Engine.routes.url_helpers.post_comment_path(self.post, self)
+    def as_json(args={})
+      args ||={}
+      super(args.merge!({:methods => [:path, :author, :ftime, :admin?]}))
     end
     
-    def as_json(options={})
-      super(options.merge({:methods => [:path, :author, :ftime, :admin?]}))
+    
+    
+    def path
+      Engine.routes.url_helpers.post_comment_path(self.post, self)
     end
     
     def ftime
       I18n.l(self.created_at, :format => :short)
     end
-    
     private
-    
     def has_user_details
       if self.user.nil?
         errors.add(:author_name,  :blank) if author_name.blank?

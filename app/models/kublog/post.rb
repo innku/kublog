@@ -2,7 +2,6 @@
 module Kublog
   class Post < ActiveRecord::Base
     extend FriendlyId
-    #include Notifiable::Email, Notifiable::Tweet, Notifiable::FbPost
     
     #Associations
     belongs_to                :user,          :class_name => Kublog.author_class

@@ -1,6 +1,5 @@
-# This class includes the interface to all the different
-# Delivery methods and requires the one that the user chose
-# in the configuration File
+# Sets up email delivery method for the notification model
+# Includes validations of non blank email content
 
 module Kublog
   module Network
@@ -16,18 +15,18 @@ module Kublog
       
       module InstanceMethods 
         
+        # Calls appropriate processor to process e-mail sending to the
+        # bulk of users
         def deliver_email
           Processor.work(BulkEmail.new(self))
         end  
         
-        def kublog_email?(role)
-          roles.include?(role)
-        end
-        
+        # Never send e-mail notification by default
         def default_email
           false
         end
         
+        # Returns true if notification acts as e-mail
         def email?
           self.kind == 'email'
         end
@@ -42,10 +41,15 @@ module Kublog
       
       module ClassMethods
         
+        # Renders a preview of the e-mail that will be sent to the user
+        # so that the Author can edit the content of the e-mail on a Liquid Template
         def email_template(post)
           ERB.new(email_erb_template.read).result(binding)
         end
 
+        private
+        
+        
         def email_erb_template
           if File.exists?(File.join(Rails.root, TEMPLATE))
             File.open(File.join(Rails.root, TEMPLATE))
@@ -63,6 +67,9 @@ module Kublog
           @post = notification.post
         end
       
+        # Processes sending email to bunch of users if appropriate
+        # calls notify_post? on every user to determine whether or not
+        # to send e-mail
         def perform
           klass = eval(Kublog.notify_class)        
           klass.all.each do |user|
@@ -86,6 +93,7 @@ module Kublog
           @user = user
         end   
         
+        # Sends a single e-mail to the user
         def perform
           PostMailer.new_post(self, @user).deliver
         end
