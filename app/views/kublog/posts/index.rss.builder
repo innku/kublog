@@ -1,8 +1,7 @@
 xml.instruct! :xml, :version => "1.0", :encoding => 'UTF-8'
-xml.rss :version => "2.0", 'xmlns:dc' => "http://purl.org/dc/elements/1.1/" do
+xml.rss :version => "2.0", 'xmlns:dc' => "http://purl.org/dc/elements/1.1/", 'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
   xml.channel do
-    xml.tag!("atom:link", 'xmlns:atom' => 'http://www.w3.org/2005/Atom', 
-             :rel => 'hub', :href => atom_url(@presenter))
+    xml.tag!("atom:link", :rel => 'self', :href => atom_url(@presenter))
     xml.title @presenter.title
     xml.description @presenter.description
     xml.link root_url
