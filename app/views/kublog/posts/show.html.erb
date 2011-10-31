@@ -2,10 +2,10 @@
   <h2><%= t('.post_actions') %></h2>
     <ul>
       <% if is_admin? %>
-        <li><%= link_to t('.edit'),  [:edit, @presenter.post] %></li>
-        <li><%= link_to t('.delete'), @presenter.post, :method => :delete, :confirm => t('.confirm') %></li>
+        <li class='edit'><%= link_to t('.edit'),  [:edit, @presenter.post] %></li>
+        <li class='delete'><%= link_to t('.delete'), @presenter.post, :method => :delete, :confirm => t('.confirm') %></li>
       <% end %>
-      <li> <%= link_to 'All posts', posts_path %></li>
+      <li class='all'><%= link_to t('.view_all'), posts_path %></li>
     </ul>
 </div>
 <div class='post-title'>

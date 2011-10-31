@@ -2,7 +2,7 @@
   <% if is_admin? %>
     <h2><%= t('.actions') %></h2>
     <ul>
-      <li><%= link_to 'New Post', new_post_path %></li>
+      <li class='new'><%= link_to t('.new'), new_post_path %></li>
     </ul>
   <% end %>
   <% unless @presenter.categories.empty? %>
