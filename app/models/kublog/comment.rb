@@ -17,7 +17,7 @@ module Kublog
     end
     
     def as_json(args={})
-      args ||={}
+      args ||= {}
       super(args.merge!({:methods => [:path, :author, :ftime, :admin?]}))
     end
     

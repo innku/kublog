@@ -12,7 +12,7 @@
   <h1><%= @presenter.post %></h1>
   <span class='published-at'><%= l @presenter.post.updated_at, :format => :short %></span>
 </div>
-<div class='post-pody'>
+<div class='post-body'>
   <%= @presenter.post.body.html_safe %>
 </div>
 <div class='post-comments'>
