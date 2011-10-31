@@ -25,10 +25,12 @@
 
 <% @presenter.posts.each do |post| %>  
   <div class='post'>
-    <%= link_to content_tag(:h2, post.title), quickie_path(post), :class => 'post-title' %>
-    <span class='published-at'>
-      <%= l post.updated_at, :format => :short %>
-    </span>
+    <div class='post-title'>
+      <h1><%= link_to post.title, quickie_path(post) %></h1>
+      <span class='published-at'>
+        <%= l post.updated_at, :format => :short %>
+      </span>
+    </div>
     <div class='post-body'>
       <%= post.body.html_safe %>
     </div>
