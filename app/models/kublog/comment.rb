@@ -12,8 +12,7 @@ module Kublog
     after_create    :notify_author
     
     def author
-      return self.author_name if self.user.nil?
-      return self.user.to_s
+      (self.user && self.user.to_s) || self.author_name
     end
     
     def as_json(args={})
