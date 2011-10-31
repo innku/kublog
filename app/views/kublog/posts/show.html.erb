@@ -18,7 +18,7 @@
 </div>
 <div class='post-comments'>
   <% @presenter.comments.each do |comment| %>
-    <div class='comment <%= admin_comment?(comment) %>'>
+    <div class='comment <%= 'admin' if comment.admin? %>'>
       <h4><%= comment.author %></h4>
       <p class='body'><%= comment.body %></p>
       <span><%= l comment.created_at, :format => :short %></span>
