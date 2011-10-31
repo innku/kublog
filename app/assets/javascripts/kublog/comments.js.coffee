@@ -24,7 +24,7 @@ commentTemplate = (comment) ->
   """
   <div class='comment #{extra_class}'>
     <h4>#{comment.author}</h4> 
-    <span>#{comment.ftime}</span> 
+    <span class='time'>#{comment.ftime}</span> 
     <p class='body'>#{comment.body}</p> 
   </div>
   """

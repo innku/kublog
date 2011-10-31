@@ -27,9 +27,9 @@
   <div class='post'>
     <div class='post-title'>
       <h1><%= link_to post.title, quickie_path(post) %></h1>
-      <span class='published-at'>
-        <%= l post.updated_at, :format => :short %>
-      </span>
+      <span class='published-at'><%= l post.updated_at, :format => :short %></span>
+      <span class='author'><%= t('.by') %> <%= post.author %></span>
+      <span class='comments-count'><%= t('.comment_count', :count => post.comments.count) %></span>
     </div>
     <div class='post-body'>
       <%= post.body.html_safe %>
