@@ -65,6 +65,10 @@ module Kublog
       end
       
       class BulkEmail
+
+        attr_reader :notification
+
+        @queue = :kublog_notifications
         
         def initialize(notification)
           @notification = notification
@@ -75,10 +79,21 @@ module Kublog
         # calls notify_post? on every user to determine whether or not
         # to send e-mail
         def perform
-          klass = eval(Kublog.notify_class)    
+          klass = Kublog.notify_class.constantize
           klass.all.each do |user|
             if user.notify_post?(@notification.roles)
               Processor.work(SingleEmail.new(@notification, user))
+            end
+          end
+        end
+
+        def self.perform(notification_id)
+          notification = Kublog::Notification.find(notification_id)
+          klass = Kublog.notify_class.constantize
+
+          klass.all.each do |notifiable|
+            if notifiable.notify_post?(notification.roles)
+              Resque.enqueue(SingleEmail, notifiable.id, notification.id)
             end
           end
         end
@@ -88,7 +103,9 @@ module Kublog
       class SingleEmail
         
         attr_accessor :subject, :body, :post, :url
-        
+
+        @queue = :kublog_notifications
+
         def initialize(notification, user)
           @subject = notification.title
           @notification = notification
@@ -103,7 +120,13 @@ module Kublog
           PostMailer.new_post(self, @post, @user).deliver
           @notification.delivered
         end
-                
+
+        def self.perform(notifiable_id, notification_id)
+          notifiable = Kublog.notify_class.constantize.find(notifiable_id)
+          notification = Kublog::Notification.find(notification_id)
+
+          SingleEmail.new(notification, notifiable).perform
+        end
       end
       
     end
