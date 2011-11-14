@@ -57,6 +57,10 @@ module Kublog
       unless defined? Delayed::Job
         raise 'You must require delayed_job in your Gemfile to use this feature' 
       end
+    elsif @@notification_processing == :resque
+      unless defined? Resque
+        raise 'You must require resque in your Gemfile to process notifications via Resque'
+      end
     end
   end
   
