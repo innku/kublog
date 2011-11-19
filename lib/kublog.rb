@@ -99,7 +99,20 @@ module Kublog
   end
   
   def self.twitter
+    @@twitter_config = true
     yield @@twitter_client
+  end
+  
+  def self.facebook?
+    @@facebook_client.present?
+  end
+  
+  def self.twitter?
+    defined? @@twitter_config
+  end
+  
+  def self.email?
+    @@from_string || @from_action
   end
   
   def self.root_path

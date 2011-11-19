@@ -32,9 +32,15 @@ module Kublog
       
       ## Optionally copies javascript files
       def generate_coffee
-        directory "app/assets/javascripts/kublog"
+        if options.coffee?
+          directory "app/assets/javascripts/kublog"
+        end
       end
       
+      def generate_configuration
+        copy_file template_path('configuration.rb.tt'), 'config/initializers/kublog.rb'
+      end
+        
       private
       
       def self.next_migration_number(path)
@@ -43,11 +49,16 @@ module Kublog
         Time.now.utc.strftime("%Y%m%d%H%M") + @seconds.to_s
       end
       
+      ## Copies files in a directory filtering them with a given extension
       def selective_copy(directory, &block)
         Dir[File.join(source_paths, directory)].each do |filename|
-          filepath = filename.to_s.gsub("Engine.root.to_s/", '')
-          copy_file filepath
+          file = filename.to_s.gsub("#{Engine.root.to_s}/", '')
+          copy_file file
         end
+      end
+      
+      def template_path(file)
+        File.join(File.expand_path(__FILE__), '..', 'templates', file)
       end
         
     end
