@@ -45,7 +45,8 @@ module Kublog
       
       def selective_copy(directory, &block)
         Dir[File.join(source_paths, directory)].each do |filename|
-          copy_file filename.gsub(source_paths.to_s,'')
+          filepath = filename.to_s.gsub("Engine.root.to_s/", '')
+          copy_file filepath
         end
       end
         
