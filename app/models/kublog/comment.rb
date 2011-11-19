@@ -21,7 +21,6 @@ module Kublog
     end
     
     
-    
     def path
       Engine.routes.url_helpers.post_comment_path(self.post, self)
     end

@@ -14,7 +14,7 @@ Kublog::Engine.routes.draw do
       post :preview
     end
   end
-  
+    
   resources :images
   resources :categories
   match     '/:id', :to => 'posts#show', :as => 'quickie'

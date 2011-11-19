@@ -1,5 +1,4 @@
 window.wysiwyg = { }
-
 window.wysiwyg.default_controls =
 	controls:
 		bold : { visible : true }

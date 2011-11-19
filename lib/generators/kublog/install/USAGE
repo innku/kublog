@@ -1,0 +1,8 @@
+Description:
+    This generator will create all the necessary files to use and customize Kublog.
+
+Example:
+    rails generate install kublog
+
+    This will create:
+        what/will/it/create

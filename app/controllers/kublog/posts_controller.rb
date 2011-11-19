@@ -9,7 +9,6 @@ module Kublog
         format.html { }
         format.atom { render :layout => false, :content_type => 'text/xml' }
         format.rss  { render :layout => false, :content_type => 'text/xml' }
-        
       end
     end
     
