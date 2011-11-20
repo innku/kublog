@@ -16,87 +16,91 @@ Currently in alpha and under continuous development, hackers welcome.
 * Moderated comments from apps users, apps admins, and visitors
 * Atom feed for main blog and individual post categories
 
-== What you need
+== Kublog Basic Usage
 
-* Ruby  1.9.x
+Kublog is a mountable Engine that assumes you use the following tools for development:
+
 * Rails 3.1
-* Bundler
+* ActiveRecord
 
-== Install
+Generate migrations and all the code you'll likely want to customize.
 
-Require in your Gemfile
-  
-  gem 'kublog', '0.0.1'
-  
-Migrate the Kublog posts into your database
+  rails generate kublog:install
 
-  rake kublog:install:migrations
-  
-Mount Kublog on your routes file
+Run the migrations
+
+  rake db:migrate
+
+Mount the engine on your routes
 
   mount Kublog::Engine => "/blog(.:format)"
-  
-== How to Use
 
-On your user model:
+Include the author module under the model that will have access to create posts on the blog:
 
-  include Kublog::Author
-  include Kublog::Notifiable
+  class User < ActiveRecord::Base
+    include Kublog::Author
+  end
 
-=== User Integration
-
-Kublog User Integration depends on two functioning methods living on Kublog::ApplicationController
-
-* current_user
-* is_admin?
-
-==== Basic User Management
-
-If you are currently storing your users on session[:user_id] and have the method *admin?* for your user class, things should just work.
-
-==== Devise
-
-Replace this line
-
-  include UserIntegration::Common
-  
-With this line
-  
-  include UserIntegration::Devise
-  
-==== Uber custom user integration
-
-Override current_user, is_admin? methods for Kublog::ApplicationController
-
-Override admin? for your Kublog::Author class
-
-TODO: Better docs
-  
-==== Custom Integration, Social Networks and Image Uploading
-
-Take a look at this example configuration:
+Configure your blog's basic information on **initializers/kublog.rb**
 
   Kublog.setup do |config|
-  
-    config.blog_name = 'Rutanet'
-    config.default_url_options = {:host => 'www.rutanet.com'}
-    config.notification_processing = :immediate # or :delayed_job     
-                                                                  
-    config.user_kinds = %w(shipper carrier logistics)
-  
-    config.image_storage = :file # or :s3
-  
-    config.twitter do |twitter|
-      twitter.consumer_key = 'xxx'
-      twitter.consumer_secret = 'xxx'
-      twitter.oauth_token = 'xxx'
-      twitter.oauth_token_secret = 'xxx'
-    end
-  
-    config.facebook_page_token = 'xxx'
-  
+    config.blog_name = 'Example blog'
+    config.blog_description = 'Best blog ever'
+    config.default_url_options = {:host => 'www.exampleblog.com'}
   end
-  
-TODO: More docs
 
-Will include much more documentation as development continues, please be patient.
+To get the most of Kublog you'll want to **Integrate your Users** and **Configure your Social Networks**.
+
+## Integrate your Users
+
+The install generator will create the file **controllers/kublog/application_controller**.
+
+On this file you will see the definitions of two empty methods **current_user** and **is_admin?**. Since Kublog is an isolated mountable Engine, you **will** need to define this methods, even if you have them on your apps application_controller. 
+
+After you finish, it might will look something like this:
+
+    def current_user
+      @current_user ||= User.find(session[:user_id])
+    end
+    
+    def is_admin?
+      @current_user.admin?
+    end
+
+It's **important** to know that if you're using Devise, you won't need a current_user method. If the model you're using is named something other than user, you can call the controller access method inside of **current_user**.
+
+### Author#to_s
+
+I recommend you define a to_s method for your Author such as:
+
+    def to_s
+      "#{self.name} #{self.last_name}"
+    end
+
+## Configure your social Networks
+
+Configuring **Twitter** is pretty easy, you might want to create a twitter app on https://dev.twitter.com/
+
+You will need to feed Kublog:
+
+* Consumer Key
+* Consumer Secret
+* Oauth Token
+* Oauth Secret
+
+### Sample twitter configuration on initializers/kublog.rb
+
+    config.twitter do |twitter|
+      twitter.consumer_key = 'your-consumer-key'
+      twitter.consumer_secret = 'your-consumer-secret'
+      twitter.oauth_token = 'your-oauth-token'
+      twitter.oauth_token_secret = 'your-consumer-secret'
+    end
+
+Configuring **Facebook** Fan page posts is a little trickier, you will only need the access token for your Fan Page. 
+
+Find out how to get it here: https://github.com/innku/authorizefb
+
+### Sample Facebook configuration on initializers/kublog.rb
+
+    config.facebook_page_token = 'your-page-token'
