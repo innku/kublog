@@ -30,6 +30,14 @@ module Kublog
         directory "app/views/kublog/post_mailer"
       end
       
+      def generate_layout
+        directory 'app/views/layouts/kublog'
+      end
+      
+      def generate_css
+        directory 'app/assets/stylesheets/kublog'
+      end
+      
       def generate_configuration
         copy_file template_path('configuration.rb.tt'), 'config/initializers/kublog.rb'
       end

@@ -76,7 +76,7 @@ module Kublog
         # to send e-mail
         def perform
           klass = eval(Kublog.notify_class)    
-          klass.all do |user|
+          klass.all.each do |user|
             if user.notify_post?(@notification.roles)
               Processor.work(SingleEmail.new(@notification, user))
             end
