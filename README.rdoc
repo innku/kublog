@@ -11,7 +11,7 @@ Currently live for Rutanet[http://rutanet.com] on http://rutanet.com/blog and ot
 * Publish posts with the most basic and simple wysiwyg
 * Attach multiple images to your content
 * Share your posts on your Product's Twitter Page and Facebook Fan Page
-* E-mail personalized versions of your posts to your users
+* E-mail personalized versions of your posts to all your users
 * Optional background processing with Delayed Job
 * Moderated comments from apps users, apps admins, and visitors
 * Atom feed for main blog and individual post categories
