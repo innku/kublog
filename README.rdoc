@@ -1,10 +1,10 @@
 = Kublog
 
-Kublog is a simple yet complete way to have a Product Blog that integrates with your apps user base. It includes social sharing, atom feeds and moderated comments.
+Kublog is a simple yet complete way to have a Product Blog that integrates with your apps user base. It includes social sharing, atom feeds and moderated comments. 
 
 Built for Rails 3.1, Kublog is a complete stack, fully configurable solution. 
 
-Currently in alpha and under continuous development, hackers welcome.
+Currently live for Rutanet[http://rutanet.com] on http://rutanet.com/blog and other products at Innku[http://innku.com].
 
 == Features
 
@@ -128,7 +128,7 @@ Find out how to get it here: https://github.com/innku/authorizefb
 * Captcha for unsigned user notifications
 * Pagination
 
-If you wish to work on this. Fork it and include a pull request. 
+If you wish to work on this. Fork it and pull request, please =) 
     
 == Check out the code
 
