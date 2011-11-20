@@ -36,6 +36,7 @@ en:
     post_mailer:
       new_post:
         greetings: 'Greetings'
+        read_more: 'Read More'
     comment_mailer:
       new_comment:
         subject: "New comment in post '%{post}'"
