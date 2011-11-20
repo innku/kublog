@@ -1,6 +1,6 @@
 = Kublog
 
-Kublog is a complete yet simple way to have a Product Blog that integrates with your apps user base. It includes social sharing, atom feeds and moderated comments.
+Kublog is a simple yet complete way to have a Product Blog that integrates with your apps user base. It includes social sharing, atom feeds and moderated comments.
 
 Built for Rails 3.1, Kublog is a complete stack, fully configurable solution. 
 
@@ -49,7 +49,7 @@ Configure your blog's basic information on **initializers/kublog.rb**
     config.default_url_options = {:host => 'www.exampleblog.com'}
   end
 
-To get the most of Kublog you'll want to **Integrate your Users** and **Configure your Social Networks**.
+To get the most of Kublog you'll want to **Integrate your Users**, **Add E-mail Notifications** and **Configure your Social Networks**.
 
 == Integrate your Users
 
@@ -77,6 +77,23 @@ I recommend you define a to_s method for your Author such as:
       "#{self.name} #{self.last_name}"
     end
 
+== Add E-mail Notifications
+
+To add E-mail notifications, include the **Kublog::Notifiable** module into the user class that will be notified.
+
+    class User < ActiveRecord::Base
+      include Kublog::Notifiable
+    end
+
+The E-mail from which they will receive the notification is configured in your **kublog.rb** initializer:
+
+    config.author_email "Kublog Test <test@kublog.com>"
+    
+You may also configure a block to specify that the user receives the notification from the author's E-mail:
+
+    config.author_email do |post|
+      post.user.email
+    end
 === Configure your social Networks
 
 Configuring **Twitter** is pretty easy, you might want to create a twitter app on https://dev.twitter.com/
@@ -104,3 +121,15 @@ Find out how to get it here: https://github.com/innku/authorizefb
 === Sample Facebook configuration on initializers/kublog.rb
 
     config.facebook_page_token = 'your-page-token'
+
+== What's coming   
+
+* Drafts
+* Captcha for unsigned user notifications
+* Pagination
+
+If you wish to work on this. Fork it and include a pull request. 
+    
+== Check out the code
+
+Kublog is made to be as simple as possible so you can modify fork it, modify it and reuse it. Please do.

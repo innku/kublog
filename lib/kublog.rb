@@ -40,7 +40,7 @@ module Kublog
   @@user_kinds = []
   
   mattr_reader    :notification_processing
-  @@notification_processing = :immediately
+  @@notification_processing = :immediate
   
   mattr_accessor  :image_storage
   @@image_storage = :file
@@ -112,7 +112,7 @@ module Kublog
   end
   
   def self.email?
-    @@from_string || @from_action
+    Kublog.notify_class.present?
   end
   
   def self.root_path

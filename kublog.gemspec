@@ -19,18 +19,18 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # Runtime dependencies
-  s.add_runtime_dependency "rails", '~>3.1.0'
-  s.add_runtime_dependency "jquery-rails", '~>1.0.13'
-  s.add_runtime_dependency 'coffee-script', '~>2.2.0'
-  s.add_runtime_dependency "friendly_id", "~> 4.0.0.beta8"
-  s.add_runtime_dependency "sanitize", '~>2.0.3'
+  s.add_runtime_dependency "rails", '>=3.1.0'
+  s.add_runtime_dependency "jquery-rails", '>=1.0.13'
+  s.add_runtime_dependency 'coffee-script', '>=2.2.0'
+  s.add_runtime_dependency "friendly_id"
+  s.add_runtime_dependency "sanitize"
   
   # This gems should stop being dependencies but optional with certain features
-  s.add_runtime_dependency "rmagick", '~>2.13.1'
-  s.add_runtime_dependency "carrierwave", '~>0.5.7'
-  s.add_runtime_dependency 'liquid', '~>2.2.2'
-  s.add_runtime_dependency 'twitter', '~>1.6.2'
-  s.add_runtime_dependency 'fb_graph', '~>1.9.5'
+  s.add_runtime_dependency "rmagick"
+  s.add_runtime_dependency "carrierwave"
+  s.add_runtime_dependency 'liquid'
+  s.add_runtime_dependency 'twitter'
+  s.add_runtime_dependency 'fb_graph'
   
   # Development dependencies
   s.add_development_dependency "factory_girl_rails"

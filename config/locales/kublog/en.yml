@@ -36,6 +36,11 @@ en:
     post_mailer:
       new_post:
         greetings: 'Greetings'
+    comment_mailer:
+      new_comment:
+        subject: "New comment in post '%{post}'"
+        hi: 'Hi'
+        commenter_says: 'had this to say about your post '
   activerecord:
     models:
       'kublog/opst': 'Post'

@@ -1,0 +1,11 @@
+<p>
+    <%= t('.hi') %>, <%= @post.author %>
+</p>
+
+<p>
+  <strong><%= @comment.author %></strong> <%= t('.commenter_says') %> "<%= @post.title %>"
+</p>
+
+<blockquote>
+  <%= @comment.body %>
+</blockquote>

@@ -7,8 +7,9 @@ module Kublog
     validate              :has_user_details
     
     default_scope   order('kublog_comments.created_at ASC')
+    delegate        :admin?, :to => :user, :allow_nil => true
     
-    delegate  :admin?, :to => :user, :allow_nil => true
+    after_create    :notify_author
     
     def author
       return self.author_name if self.user.nil?
@@ -20,7 +21,6 @@ module Kublog
       super(args.merge!({:methods => [:path, :author, :ftime, :admin?]}))
     end
     
-    
     def path
       Engine.routes.url_helpers.post_comment_path(self.post, self)
     end
@@ -28,7 +28,19 @@ module Kublog
     def ftime
       I18n.l(self.created_at, :format => :short)
     end
+    
+    def email
+      author_email || user.email
+    end
+    
     private
+    
+    def notify_author
+      unless self.user == self.post.user
+        Processor.work(DeliverComment.new(self.id))
+      end
+    end
+    
     def has_user_details
       if self.user.nil?
         errors.add(:author_name,  :blank) if author_name.blank?
