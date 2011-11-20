@@ -51,7 +51,7 @@ Configure your blog's basic information on **initializers/kublog.rb**
 
 To get the most of Kublog you'll want to **Integrate your Users** and **Configure your Social Networks**.
 
-## Integrate your Users
+== Integrate your Users
 
 The install generator will create the file **controllers/kublog/application_controller**.
 
@@ -69,7 +69,7 @@ After you finish, it might will look something like this:
 
 It's **important** to know that if you're using Devise, you won't need a current_user method. If the model you're using is named something other than user, you can call the controller access method inside of **current_user**.
 
-### Author#to_s
+=== Author#to_s
 
 I recommend you define a to_s method for your Author such as:
 
@@ -77,7 +77,7 @@ I recommend you define a to_s method for your Author such as:
       "#{self.name} #{self.last_name}"
     end
 
-## Configure your social Networks
+=== Configure your social Networks
 
 Configuring **Twitter** is pretty easy, you might want to create a twitter app on https://dev.twitter.com/
 
@@ -88,7 +88,7 @@ You will need to feed Kublog:
 * Oauth Token
 * Oauth Secret
 
-### Sample twitter configuration on initializers/kublog.rb
+=== Sample twitter configuration on initializers/kublog.rb
 
     config.twitter do |twitter|
       twitter.consumer_key = 'your-consumer-key'
@@ -101,6 +101,6 @@ Configuring **Facebook** Fan page posts is a little trickier, you will only need
 
 Find out how to get it here: https://github.com/innku/authorizefb
 
-### Sample Facebook configuration on initializers/kublog.rb
+=== Sample Facebook configuration on initializers/kublog.rb
 
     config.facebook_page_token = 'your-page-token'
