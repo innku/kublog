@@ -48,6 +48,10 @@ Configure your blog's basic information on **initializers/kublog.rb**
     config.blog_description = 'Best blog ever'
     config.default_url_options = {:host => 'www.exampleblog.com'}
   end
+  
+Kublog uses I18n, the install generator will create the file **locales/kublog/en.yml**, make sure to add its content to your own en.yml file or add the following line on your **application.rb** also include the folders under locales:
+
+    config.i18n.load_path += Dir[File.join(Rails.root, 'config', 'locales', '**', '*.{rb,yml}')]
 
 To get the most of Kublog you'll want to **Integrate your Users**, **Add E-mail Notifications** and **Configure your Social Networks**.
 
