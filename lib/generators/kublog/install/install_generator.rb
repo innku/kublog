@@ -30,15 +30,19 @@ module Kublog
         directory "app/views/kublog/post_mailer"
       end
       
+      def generate_configuration
+        copy_file template_path('configuration.rb.tt'), 'config/initializers/kublog.rb'
+      end
+        
+      def generate_localization
+        copy_file "config/locales/kublog/en.yml"
+      end
+      
       ## Optionally copies javascript files
       def generate_coffee
         if options.coffee?
           directory "app/assets/javascripts/kublog"
         end
-      end
-      
-      def generate_configuration
-        copy_file template_path('configuration.rb.tt'), 'config/initializers/kublog.rb'
       end
         
       private

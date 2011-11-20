@@ -54,7 +54,6 @@ module Kublog
 
         private
         
-        
         def email_erb_template
           if File.exists?(File.join(Rails.root, TEMPLATE))
             File.open(File.join(Rails.root, TEMPLATE))
@@ -77,7 +76,7 @@ module Kublog
         # to send e-mail
         def perform
           klass = eval(Kublog.notify_class)    
-          klass.all.each do |user|
+          klass.all do |user|
             if user.notify_post?(@notification.roles)
               Processor.work(SingleEmail.new(@notification, user))
             end
