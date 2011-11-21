@@ -23,6 +23,10 @@ Kublog is a mountable Engine that assumes you use the following tools for develo
 * Rails 3.1
 * ActiveRecord
 
+In your Gemfile
+
+  gem 'kublog', '0.9.0'
+
 Generate migrations and all the code you'll likely want to customize.
 
   rails generate kublog:install
