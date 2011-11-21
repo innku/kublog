@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    kublog (0.1.0.rc)
+    kublog (0.9.0)
       carrierwave
       coffee-script (>= 2.2.0)
       fb_graph
