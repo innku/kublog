@@ -1,5 +1,7 @@
 window.wysiwyg = { }
 window.wysiwyg.default_controls =
+	autoGrow: true
+	maxHeight: 500
 	controls:
 		bold : { visible : true }
 		italic : { visible : true }
