@@ -1,15 +1,26 @@
 $(document).ready ->
   
-  $('#kublog #new_kublog_comment').submit ->
+  $('#kublog #new_comment').submit ->
+    $(this).find('input[type=submit]').removeClass('btn').addClass('btn-disabled').attr('disabled', 'disabled')
+    $(this).find('.spinner_div').show();
     resetErrors()
   
-  $('#kublog #new_kublog_comment').bind 'ajax:success', (xhr, data, status)->
+  $('#kublog #new_comment').bind 'ajax:success', (xhr, data, status)->
     $('.post-comments').append(commentTemplate(data.comment))
     $(this).find('textarea,input[type=text]').val('')
-    
-  $('#kublog #new_kublog_comment').bind 'ajax:error', (xhr, error, status)->
+    $(this).find('input[type=submit]').removeClass('btn-disabled').addClass('btn').removeAttr('disabled')
+    $(this).find('.spinner_div').hide();
+    # Increment the number of comments
+    $count = $('.post-comments .comments-count')
+    comments_count = parseInt($count.text(), 10)
+    $count.html($count.text().replace(comments_count, comments_count+1))
+
+
+  $('#kublog #new_comment').bind 'ajax:error', (xhr, error, status)->
     errors =  JSON.parse(error.responseText)
     setErrors('comment', errors)
+    $(this).find('input[type=submit]').removeClass('btn-disabled').addClass('btn').removeAttr('disabled')
+    $(this).find('.spinner_div').hide();
     
   $('#kublog .comment a.delete').click ->
     $link = $(this)
