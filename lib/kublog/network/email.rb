@@ -87,6 +87,9 @@ module Kublog
           end
         end
 
+        # This is called when using Resque.
+        # FIXME: This and #perform above are mostly repeated. Could their
+        # common behaviour be abstracted?
         def self.perform(notification_id)
           notification = Kublog::Notification.find(notification_id)
           klass = Kublog.notify_class.constantize
