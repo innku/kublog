@@ -9,9 +9,20 @@ require 'rspec/rails'
 require 'factory_girl'
 require 'factories'
 require 'json'
+require 'capybara/rspec'
+require 'database_cleaner'
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
+  DatabaseCleaner.strategy = :truncation
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
 module Support
