@@ -3,7 +3,7 @@ class KublogPost extends KublogForm
   constructor: () ->
     @title = $('#post_title')
     @body =  $('#post_body')
-    @invited_author_trigger = $('#want_invited_author')
+    @invited_author_trigger = $('#post_want_invited_author')
 
   validateTitle: ->
     @validatesPresenceOf @title, "title"
@@ -71,7 +71,7 @@ $(document).ready ->
       window.setErrors('post', post.errors)
     return false
 
-  $('#kublog #want_invited_author').change ->
+  $('#kublog #post_want_invited_author').change ->
     $wrapper = $(this).siblings('#invited_author')
     if $(this).attr('checked')?
       $wrapper.show()
@@ -99,4 +99,4 @@ charCounter = ->
 mimicTitle = -> $('#kublog .mimic').val($(this).val()).keyup()
     
 removeInvitedAuthorUnlessChecked = ->
-  $("#invited_author").remove() unless $('#want_invited_author').attr("checked")?
+  $("#invited_author").remove() unless $('#post_want_invited_author').attr("checked")?

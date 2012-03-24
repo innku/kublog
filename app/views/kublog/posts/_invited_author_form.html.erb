@@ -1,4 +1,4 @@
-<div style='display:none' id="invited_author">
+<div style='<%= hide_if_no_invited_author(f.object) %>' id="invited_author">
   <%= f.fields_for :invited_author do |i| %>
     <div>
       <%= i.label :name %><br/>

@@ -15,12 +15,15 @@ module Kublog
     
     #Special Attributes
     friendly_id               :title, :use => :slugged
+    attr_accessor             :want_invited_author
     
     #Scopes
     default_scope             order('kublog_posts.created_at DESC')
     
     accepts_nested_attributes_for :notifications
     accepts_nested_attributes_for :invited_author
+
+    after_update              :check_for_deleted_invited_author
     
     def author
       author = invited_author ? invited_author : user
@@ -55,5 +58,8 @@ module Kublog
       Sanitize.clean(self.body).gsub(/[ | ]/, '').blank? 
     end
     
+    def check_for_deleted_invited_author
+      invited_author.delete if invited_author && !want_invited_author
+    end
   end
 end

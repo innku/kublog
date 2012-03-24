@@ -66,4 +66,31 @@ describe Kublog::Post do
     
   end
   
+  describe "#check_for_deleted_invited_author" do
+    let(:post) { Factory(:post)}
+
+    context "The post has an invited author" do
+      let!(:invited_author) { Factory(:invited_author, :post => post)}
+
+      it "should delete the invited author if it doesnt want it" do
+        post.want_invited_author = false
+        post.title = "Elias"
+        post.save
+        post.reload.invited_author.should be_nil
+      end
+
+      it "shouldn't delete the invited author if it wants it" do
+        post.want_invited_author = "1"
+        post.title = "Elias"
+        post.save
+        post.invited_author.should == invited_author
+      end
+    end
+
+    it "shouldn't do anything if there is no invited author" do
+      post.title = "Elias"
+      post.save
+      post.invited_author.should be_nil
+    end
+  end
 end
