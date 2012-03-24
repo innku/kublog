@@ -26,8 +26,7 @@ module Kublog
     after_update              :check_for_deleted_invited_author
     
     def author
-      author = invited_author ? invited_author : user
-      author.to_s
+      invited_author ? invited_author : user
     end
     
     def to_s

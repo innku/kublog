@@ -18,16 +18,16 @@ describe Kublog::Post do
   end
   
   describe '#author' do
-    it 'is a proxy for the invited author to_s method if it has an invited author' do
-      invited_author = Factory.build :invited_author
-      post = Factory.build :post, :invited_author => invited_author
-      post.author.should == invited_author.to_s
-    end
-    
-    it 'is a proxy for the invited author to_s method if it does not have an invited author' do
+    it 'should return the user if there is no invited author' do
       user = Factory.build :user
       post = Factory.build :post, :user => user
-      post.author.should == user.to_s
+      post.author.should == user
+    end
+
+    it 'should return the invited author if there is an invited author' do
+      invited_author = Factory.build :invited_author
+      post = Factory.build :post, :invited_author => invited_author
+      post.author.should == invited_author
     end
   end
   
