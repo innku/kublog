@@ -24,6 +24,7 @@ en:
         format_email: 'Format E-Mail'
         link_to_tweet: 'A link to this post will be appended'
         link_to_facebook: "Will be published as link to this post"
+        want_invited_author: "Invited Author"
       image_form:
         insert_image: 'Insert Image'
         or: 'or'
@@ -53,6 +54,9 @@ en:
       'kublog/comment':
         author_name: 'Name'
         author_email: 'E-mail'
+      'kublog/invited_author':
+        name: 'Invited Author Name'
+        email: 'Invited Author E-mail'
   helpers:
     label:
       post:

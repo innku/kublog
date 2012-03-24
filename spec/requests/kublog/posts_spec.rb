@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative 'helpers/posts'
 require_relative 'helpers/integration_tests'
 
 describe "Posts" do
@@ -8,17 +9,21 @@ describe "Posts" do
       login(@user)
       @category = Factory(:category)
       visit "/blog/posts/new"
-      page.execute_script("$('#post_body').wysiwyg('destroy');")
     end
 
     it "creates a Post", :js => true do
-      fill_in "post_title", :with => "My title"
-      fill_in "post_body", :with => "<p>My description</p>"
-      select @category.name, :from => "post_category_id"
-      uncheck "twitter_notify"
-      uncheck "facebook_notify"
+      fill_basic_post_with_no_notifications(@category)
       click_button "create_post_button"
       page.should have_content("My title")
+    end
+
+    it "creates a Post with an invited author", :js => true do
+      fill_basic_post_with_no_notifications(@category)
+      check("want_invited_author")
+      fill_in "post_invited_author_attributes_name",  :with => "Alberto Padilla"
+      fill_in "post_invited_author_attributes_email", :with => "alberto@rutanet.com"
+      click_button "create_post_button"
+      page.should have_content("Alberto Padilla")
     end
   end
 end

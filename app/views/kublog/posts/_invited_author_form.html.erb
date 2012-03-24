@@ -1,0 +1,12 @@
+<div style='display:none' id="invited_author">
+  <%= f.fields_for :invited_author do |i| %>
+    <div>
+      <%= i.label :name %><br/>
+      <%= i.text_field :name %>
+    </div>
+    <div>
+      <%= i.label :email %><br/>
+      <%= i.text_field :email %>
+    </div>
+  <% end %>
+</div>

@@ -8,6 +8,7 @@ module Kublog
     belongs_to                :category
     has_many                  :comments,      :dependent => :destroy
     has_many                  :notifications, :dependent => :nullify
+    has_one                   :invited_author, :dependent => :destroy
     
     validates_presence_of     :title, :body, :user
     validate                  :body_with_content
@@ -19,9 +20,11 @@ module Kublog
     default_scope             order('kublog_posts.created_at DESC')
     
     accepts_nested_attributes_for :notifications
+    accepts_nested_attributes_for :invited_author
     
     def author
-      user.to_s
+      author = invited_author ? invited_author : user
+      author.to_s
     end
     
     def to_s
