@@ -16,10 +16,18 @@ require 'capybara-webkit'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
-  DatabaseCleaner.strategy = :truncation
+
+  config.before(:suite) do 
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
   config.before(:each) do
-    DatabaseCleaner.start
+    if example.metadata[:js]
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.start
+    end
   end
 
   config.after(:each) do
