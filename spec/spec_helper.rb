@@ -11,6 +11,8 @@ require 'factories'
 require 'json'
 require 'capybara/rspec'
 require 'database_cleaner'
+require 'headless'
+require 'capybara-webkit'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -23,6 +25,19 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Headless browser
+  Capybara.javascript_driver = :webkit
+  config.before(:suite) do 
+    headless = Headless.new
+    headless.start
+    at_exit do
+      headless.destroy
+    end
+  end
+
+  # More speed
+  Capybara.automatic_reload = false
 end
 
 module Support

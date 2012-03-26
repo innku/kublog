@@ -6,9 +6,10 @@ gemspec
 gem 'delayed_job'
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'database_cleaner'
-  gem 'capybara'
-  gem 'launchy'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'headless'
+  gem 'capybara-webkit'
+  gem 'database_cleaner'
 end
