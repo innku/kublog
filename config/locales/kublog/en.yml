@@ -53,6 +53,9 @@ en:
       'kublog/comment':
         author_name: 'Name'
         author_email: 'E-mail'
+      'kublog/invited_author':
+        name: 'Invited Author Name'
+        email: 'Invited Author E-mail'
   helpers:
     label:
       post:
@@ -61,3 +64,4 @@ en:
         email_notify: 'Notify users via E-mail'
         twitter_notify: 'Notify users via Twitter'
         facebook_notify: 'Notify users via Facebook'
+        want_invited_author: "Invited Author"
