@@ -17,3 +17,28 @@ window.resetErrors = ->
 window.errorTemplate = (error) -> "<small class='error_description'>#{error}</small>"
 
 window.kublogPath = '<%= Kublog.root_path %>'
+
+class KublogForm
+  validatesPresenceOf: (input, attr) ->
+    return if input.val() isnt ""
+    @addError(attr, "can't be blank")
+
+  validatesEmailField: (input, attr) ->
+    emailPattern = /^([\w.-]+)@([\w.-]+)\.([a-zA-Z.]{2,6})$/i
+    return if input.val().match(emailPattern)
+    @addError(attr,"doesn't have a valid format")
+
+  addErrors: (errors)->
+    for attr, error of errors
+      @addError(attr, error)
+
+  addError: (attr, error)->
+    @errors ?= {}
+    @errors[attr] = [error]
+
+  validate: ->
+    @errors = undefined
+    @run_validations()
+    @errors is undefined
+
+window.KublogForm =  KublogForm

@@ -8,20 +8,25 @@ module Kublog
     belongs_to                :category
     has_many                  :comments,      :dependent => :destroy
     has_many                  :notifications, :dependent => :nullify
+    has_one                   :invited_author, :dependent => :destroy
     
     validates_presence_of     :title, :body, :user
     validate                  :body_with_content
     
     #Special Attributes
     friendly_id               :title, :use => :slugged
+    attr_accessor             :want_invited_author
     
     #Scopes
     default_scope             order('kublog_posts.created_at DESC')
     
     accepts_nested_attributes_for :notifications
+    accepts_nested_attributes_for :invited_author
+
+    after_update              :check_for_deleted_invited_author
     
     def author
-      user.to_s
+      invited_author ? invited_author : user
     end
     
     def to_s
@@ -52,5 +57,8 @@ module Kublog
       Sanitize.clean(self.body).gsub(/[ | ]/, '').blank? 
     end
     
+    def check_for_deleted_invited_author
+      invited_author.delete if invited_author && !want_invited_author
+    end
   end
 end

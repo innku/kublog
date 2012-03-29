@@ -10,6 +10,8 @@ $(document).ready ->
     $(this).ajaxyUpload
      url : "#{kublogPath}images.json"
      success : (data) ->
+       data = if data.image then data.image else data
+
        $('#image_id').val(data.id)
        $('#image_alt').val(data.alt)
        $('#image-upload input').attr('disabled',false)

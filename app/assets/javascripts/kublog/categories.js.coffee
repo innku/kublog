@@ -6,6 +6,7 @@ $(document).ready ->
       new_name = prompt('New category name')
       if new_name?
         $.post "#{kublogPath}categories", {category: {name: new_name}}, (data)->
+          data = if data.category then data.category else data
           $(optionTemplate(data)).insertAfter($select.find('option:first'))
           $select.val(data.id)
           if $select.find('optgroup option').length is 0
@@ -37,6 +38,7 @@ $(document).ready ->
     new_name = prompt($(this).attr('data-prompt'), $link.text())
     if new_name?
       $.post $link.attr('href'), {_method: 'put', category: {name: new_name}}, (data)->
+        data = if data.category then data.category else data
         $link.text(data.name)
         $link.attr('href', data.path)
     return false
