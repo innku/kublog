@@ -52,5 +52,4 @@ describe Kublog::Comment do
       @json['admin?'].should == false
     end
   end
-  
 end
