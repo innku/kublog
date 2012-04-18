@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      self.current_user = @user
+      self.kublog_current_user = @user
       redirect_to kublog_path, :notice => 'User registered successfully'
     else
       render 'new'

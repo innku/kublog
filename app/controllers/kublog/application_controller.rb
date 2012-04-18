@@ -3,7 +3,7 @@ module Kublog
     before_filter :require_admin
     
     helper_method :is_admin?
-    helper_method :current_user #TODO: Delete me if you're using Devise
+    helper_method :kublog_current_user 
     
     def require_admin
       redirect_to root_path unless is_admin?
@@ -13,8 +13,8 @@ module Kublog
     ## This method should return the logged in user or nil
     ## Define this whether or not you have it on your application controller
     ## Apps using Devise can skip this
-    def current_user
-
+    def kublog_current_user
+			current_user # Default devise setup
     end
     
     ## TODO: Fill in this method

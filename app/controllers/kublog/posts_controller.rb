@@ -22,7 +22,8 @@ module Kublog
     end
     
     def create
-      @post = current_user.posts.build(params[:post])
+			logger.debug "CREATING A NEW BLOG POST"
+      @post = kublog_current_user.posts.new(params[:post])
       if @post.save
         redirect_to @post
       else

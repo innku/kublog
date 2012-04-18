@@ -2,7 +2,7 @@ class CreateKublogComments < ActiveRecord::Migration
   def change
     create_table :kublog_comments do |t|
       t.text       :body
-      t.references :user
+      t.references :user, :polymorphic => true
       t.references :post
       t.string     :author_name
       t.string     :author_email
