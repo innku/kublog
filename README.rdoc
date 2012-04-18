@@ -27,6 +27,10 @@ Generate migrations and all the code you'll likely want to customize.
 
   rails generate kublog:install
 
+Copy the migrations to the parent applications
+
+  rake kublog:install:migrations
+
 Run the migrations
 
   rake db:migrate
