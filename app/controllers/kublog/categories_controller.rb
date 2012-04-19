@@ -2,6 +2,7 @@ module Kublog
   class CategoriesController < ApplicationController
     
     skip_filter :require_admin, :only => [:show]
+		layout :admin, :except => [:show]
     
     def show
       @category = Category.find(params[:id])

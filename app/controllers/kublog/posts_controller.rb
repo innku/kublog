@@ -2,6 +2,7 @@ module Kublog
   class PostsController < ApplicationController
     
     skip_filter   :require_admin, :only => [:index, :show]
+		layout :admin, :except => [:index, :show]
     
     def index
       @presenter = PostsPresenter.new
