@@ -12,6 +12,7 @@ module Kublog
         format.rss  { render "/kublog/posts/index", :layout => false, :content_type => 'text/xml' }
         format.html { render "/kublog/posts/index" }
       end
+			render :layout => 'kublog/application'
     end
     
     def create
