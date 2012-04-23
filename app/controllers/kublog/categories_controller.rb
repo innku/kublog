@@ -2,6 +2,7 @@ module Kublog
   class CategoriesController < ApplicationController
     
     skip_filter :require_admin, :only => [:show]
+		layout 'kublog/admin', :except => [:show]
     
     def show
       @category = Category.find(params[:id])
@@ -11,6 +12,7 @@ module Kublog
         format.rss  { render "/kublog/posts/index", :layout => false, :content_type => 'text/xml' }
         format.html { render "/kublog/posts/index" }
       end
+			render :layout => 'kublog/application'
     end
     
     def create
