@@ -81,6 +81,10 @@ I recommend you define a to_s method for your Author such as:
       "#{self.name} #{self.last_name}"
     end
 
+=== Invited Author Funcionality
+
+When editing a form, the admin can assign the post to an invited author. If this happens, the mails that are sent when a person comments on the post, are sent to the invited author and the admin that published the post.
+
 == Add E-mail Notifications
 
 To add E-mail notifications, include the **Kublog::Notifiable** module into the user class that will be notified.
@@ -98,6 +102,7 @@ You may also configure a block to specify that the user receives the notificatio
     config.author_email do |post|
       post.user.email
     end
+
 === Configure your social Networks
 
 Configuring **Twitter** is pretty easy, you might want to create a twitter app on https://dev.twitter.com/
