@@ -10,4 +10,5 @@
 //= require_directory ../../plugins/kublog/fancybox/javascripts
 //= require_directory ../../plugins/kublog/livequery/javascripts
 //= require_directory ../../plugins/kublog/ajaxyupload/javascripts
+//= require kublog/shared
 //= require_tree .

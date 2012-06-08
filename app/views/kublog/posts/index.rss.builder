@@ -13,7 +13,7 @@ xml.rss :version => "2.0", 'xmlns:dc' => "http://purl.org/dc/elements/1.1/", 'xm
         xml.link post_url(post)
         xml.guid post_url(post)
         xml.category post.category.to_s if post.category
-        xml.tag! "dc:creator", post.author
+        xml.tag! "dc:creator", post.author.to_s
       end
     end
   end

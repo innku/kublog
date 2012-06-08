@@ -38,5 +38,17 @@ module Kublog
       presenter.category.nil? ? posts_url(:format => :atom) : category_url(presenter.category, :format => :atom)
     end
     
+    def hide_if_no_invited_author(post)
+      "display:none" unless display_invited_author_form?(post)
+    end
+
+    # To understand this, you need to know that
+    # regardless if the user wants or not the invited author,
+    # we need to build the invited author form so the form
+    # is displayed appropiatly.
+    # So asking if the post has an invited author is not enough
+    def display_invited_author_form?(post)
+      !(post.new_record? || post.invited_author.new_record?)
+    end
   end
 end

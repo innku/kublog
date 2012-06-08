@@ -52,3 +52,8 @@ Factory.define :user do |f|
   f.password_confirmation  'secret'
 end
 
+Factory.define :invited_author, :class => Kublog::InvitedAuthor do |f|
+  f.name 'Alberto Padilla'
+  f.email "alberto@innku.com"
+  f.association :post
+end

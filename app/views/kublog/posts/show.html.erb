@@ -11,6 +11,7 @@
 <div class='post-title'>
   <h1><%= @presenter.post %></h1>
   <span class='published-at'><%= l @presenter.post.updated_at, :format => :short %></span>
+  <span>Escrito por <%= @presenter.post.author %></span>
 </div>
 <div class='post-pody'>
   <%= @presenter.post.body.html_safe %>
