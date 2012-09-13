@@ -36,7 +36,7 @@ module Kublog
     private
     
     def notify_author
-      unless self.user == self.post.user
+      if CommentMailerManager.necessary_notifications?(self)
         Processor.work(DeliverComment.new(self.id))
       end
     end
