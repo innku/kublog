@@ -11,6 +11,7 @@ require "sanitize"
 
 require "kublog/engine"
 require "kublog/version"
+require "kublog/comment_mailer_manager"
 
 module Kublog
   

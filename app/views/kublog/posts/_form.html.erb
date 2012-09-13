@@ -16,6 +16,11 @@
       <%= f.label :category_id %> <br />
       <%= select_tag 'post[category_id]', category_options(post).html_safe %>
     </div>
+    <div class='field'>
+      <%= check_box_tag 'post[want_invited_author]', "1", display_invited_author_form?(f.object) %>
+      <%= f.label :want_invited_author %>
+      <%= render :partial => 'invited_author_form', :locals => { :f => f } %>
+    </div>
   </div>
   
   <div class='sharing-attributes'>
