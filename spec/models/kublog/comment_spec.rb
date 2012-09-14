@@ -4,7 +4,7 @@ describe Kublog::Comment do
   describe '#validate' do
     it 'is valid with an associated user' do
       Factory.build(:user_comment).should be_valid
-    end
+    end 
     it 'is valid with a complete anonimous user' do
       Factory.build(:anonymous_comment).should be_valid
     end

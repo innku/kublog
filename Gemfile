@@ -6,7 +6,7 @@ gemspec
 gem 'delayed_job'
 
 group :development, :test do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'headless'

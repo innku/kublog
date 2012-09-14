@@ -38,6 +38,10 @@ module Kublog
         directory 'app/assets/stylesheets/kublog'
       end
       
+      def generate_plugins
+        directory 'app/assets/plugins/kublog'
+      end
+      
       def generate_configuration
         copy_file template_path('configuration.rb.tt'), 'config/initializers/kublog.rb'
       end
