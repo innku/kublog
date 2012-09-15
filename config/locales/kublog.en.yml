@@ -2,6 +2,7 @@ en:
   kublog:
     posts:
       index:
+        new: 'New post'
         edit: 'edit'
         delete: 'delete'
         category_delete_confirm: 'Are you sure? All posts under this category will be left uncategorized'
