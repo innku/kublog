@@ -11,7 +11,7 @@ module Kublog
         
         # Calls processor to work on delivering the tweet
         def deliver_twitter
-          Processor.work(Tweet.new(self.content, self.url))
+          Processor.work(Tweet.new(self))
         end
         
         # It's activated by default when a new post is created
@@ -36,9 +36,15 @@ module Kublog
       end
           
       class Tweet
-        def initialize(content, url)
-          @content = content
-          @url = url
+
+        attr_reader :notification
+
+        @queue = :kublog_notifications
+
+        def initialize(notification)
+          @notification = notification
+          @content = notification.content
+          @url = notification.url
         end
     
         def perform
@@ -49,6 +55,12 @@ module Kublog
             nil # Dont do anything for now
           end
         end    
+
+        def self.perform(notification_id)
+          notification = Kublog::Notification.find(notification_id)
+          Tweet.new(notification).perform
+        end
+
       end
     end
   end

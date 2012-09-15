@@ -3,6 +3,7 @@
 # 
 # config.notification_processing = :immediate
 # config.notification_processing = :delayed_job
+# config.notification_processing = :resque
 module Kublog 
   module Processor
     
@@ -23,5 +24,9 @@ module Kublog
       Delayed::Job.enqueue(task)
     end
     
+    def self.resque(task)
+      Resque.enqueue(task.class, task.notification.id)
+    end
+
   end
 end
