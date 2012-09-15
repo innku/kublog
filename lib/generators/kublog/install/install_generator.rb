@@ -47,7 +47,7 @@ module Kublog
       end
         
       def generate_localization
-        copy_file "config/locales/kublog/en.yml"
+        copy_file "config/locales/kublog.en.yml"
       end
       
       ## Optionally copies javascript files
