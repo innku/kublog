@@ -12,7 +12,7 @@ module Kublog
         # Calls the appropriate processor on create callback
         # Posts on the fan page wall a link to the post        
         def deliver_facebook
-          Processor.work(WallPost.new(self))
+          Processor.work(WallPost, self.id)
         end
         
         # Defaults to create a facebook wall post when creating a post
@@ -35,26 +35,12 @@ module Kublog
       end
       
       class WallPost
-
-        attr_reader :notification
-
         @queue = :kublog_notifications
         
-        def initialize(notification)
-          @notification = notification
-          @url = notification.url
-          @message = notification.content
-        end
-        
-        # Posts a link to the post with the title of the content of the notification
-        # as a default message
-        def perform
-          Kublog.facebook_client.link! :link => @url, :message => @message
-        end
-
         def self.perform(notification_id)
           notification = Kublog::Notification.find(notification_id)
-          WallPost.new(notification).perform
+          message, url = notification.content, notification.url
+          Kublog.facebook_client.link! :link => url, :message => message
         end
         
       end
