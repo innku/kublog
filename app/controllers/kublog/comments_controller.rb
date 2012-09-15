@@ -28,7 +28,7 @@ module Kublog
     private
     
     def set_comment_user
-      if current_user
+      if kublog_current_user
         params[:comment].merge!({:user => current_user})
       end
     end

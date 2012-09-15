@@ -4,7 +4,7 @@ class CreateKublogPosts < ActiveRecord::Migration
     create_table :kublog_posts do |t|
       t.string      :title
       t.text        :body
-      t.references  :user
+      t.references  :user, :polymorphic => true
       t.references  :category
       t.string      :slug
       t.timestamps

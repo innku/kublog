@@ -4,7 +4,7 @@ module Kublog
     extend FriendlyId
     
     #Associations
-    belongs_to                :user,          :class_name => Kublog.author_class
+    belongs_to                :user,          :polymorphic => true
     belongs_to                :category
     has_many                  :comments,      :dependent => :destroy
     has_many                  :notifications, :dependent => :nullify

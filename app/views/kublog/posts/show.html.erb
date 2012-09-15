@@ -36,7 +36,7 @@
   <h2><%= t('.new_comment') %></h2>
   <%= form_for [@presenter.post, Kublog::Comment.new], :remote => true do |f| %>
     <%= f.text_area :body, :rows => 5, :cols => 20, :class => 'small' %> <br />
-    <% unless current_user %>
+    <% unless kublog_current_user %>
       <%= f.label :author_name %><br />
       <%= f.text_field :author_name %> <br />
       <%= f.label :author_email %><br />
