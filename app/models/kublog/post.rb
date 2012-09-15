@@ -23,8 +23,7 @@ module Kublog
     accepts_nested_attributes_for :notifications
     accepts_nested_attributes_for :invited_author
 
-    attr_accessible           :title, :body, :category_id, :notifications_attributes
-
+    attr_accessible           :title, :body, :category_id, :invited_author_attributes, :notifications_attributes, :want_invited_author
     after_update              :check_for_deleted_invited_author
     
     def author
@@ -60,7 +59,7 @@ module Kublog
     end
     
     def check_for_deleted_invited_author
-      invited_author.delete if invited_author && !want_invited_author
+      self.invited_author.delete if self.invited_author && !self.want_invited_author
     end
   end
 end
