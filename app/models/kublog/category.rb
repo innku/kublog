@@ -11,6 +11,8 @@ module Kublog
     validates_uniqueness_of :name
     
     friendly_id             :name, :use => :slugged
+
+    attr_accessible :name
     
     def to_s
       self.name.titleize
