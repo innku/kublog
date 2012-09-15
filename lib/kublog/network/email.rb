@@ -18,7 +18,7 @@ module Kublog
         # Calls appropriate processor to process e-mail sending to the
         # bulk of users
         def deliver_email
-          Processor.work(BulkEmail.new(self))
+          Processor.work(BulkEmail, self.id)
         end  
         
         # Never send e-mail notification by default
@@ -65,38 +65,15 @@ module Kublog
       end
       
       class BulkEmail
-
-        attr_reader :notification
-
         @queue = :kublog_notifications
-        
-        def initialize(notification)
-          @notification = notification
-          @post = notification.post
-        end
       
-        # Processes sending email to bunch of users if appropriate
-        # calls notify_post? on every user to determine whether or not
-        # to send e-mail
-        def perform
-          klass = Kublog.notify_class.constantize
-          klass.all.each do |user|
-            if user.notify_post?(@notification.roles)
-              Processor.work(SingleEmail.new(@notification, user))
-            end
-          end
-        end
-
-        # This is called when using Resque.
-        # FIXME: This and #perform above are mostly repeated. Could their
-        # common behaviour be abstracted?
         def self.perform(notification_id)
           notification = Kublog::Notification.find(notification_id)
           klass = Kublog.notify_class.constantize
 
-          klass.all.each do |notifiable|
-            if notifiable.notify_post?(notification.roles)
-              Resque.enqueue(SingleEmail, notifiable.id, notification.id)
+          klass.all.each do |user|
+            if !user.respond_to?(:notify_post?) || user.notify_post?(notification.roles)
+              Processor.work(SingleEmail, notification.id, user.id)
             end
           end
         end
@@ -104,32 +81,15 @@ module Kublog
       end
       
       class SingleEmail
+        @queue = :kublog_notifications 
         
-        attr_accessor :subject, :body, :post, :url
-
-        @queue = :kublog_notifications
-
-        def initialize(notification, user)
-          @subject = notification.title
-          @notification = notification
-          @body = notification.content
-          @post = notification.post
-          @url =  notification.url
-          @user = user
-        end   
-        
-        # Sends a single e-mail to the user
-        def perform
-          PostMailer.new_post(self, @post, @user).deliver
-          @notification.delivered
-        end
-
-        def self.perform(notifiable_id, notification_id)
-          notifiable = Kublog.notify_class.constantize.find(notifiable_id)
+        def self.perform(notification_id, user_id)
+          user = Kublog.notify_class.constantize.find(user_id)
           notification = Kublog::Notification.find(notification_id)
-
-          SingleEmail.new(notification, notifiable).perform
+          PostMailer.new_post(notification, user).deliver
+          notification.delivered
         end
+
       end
       
     end

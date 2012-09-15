@@ -23,7 +23,7 @@ module Kublog
     accepts_nested_attributes_for :notifications
     accepts_nested_attributes_for :invited_author
 
-    attr_accessible :title, :body, :category_id
+    attr_accessible           :title, :body, :category_id, :notifications_attributes
 
     after_update              :check_for_deleted_invited_author
     

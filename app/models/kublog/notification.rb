@@ -12,7 +12,7 @@ module Kublog
     serialize     :roles, Array
     
     delegate      :title, :url, :to => :post
-    attr_accessible :post, :kind
+    attr_accessible :post, :kind, :content, :roles
         
     def default?
       self.send "default_#{kind}"

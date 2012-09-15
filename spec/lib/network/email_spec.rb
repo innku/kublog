@@ -80,29 +80,28 @@ module Kublog::Network
       before :all do
         User.destroy_all
         2.times { Factory(:user) }
-        @bulk_email = Email::BulkEmail.new(Factory(:email_notification))
+        @notification = Factory(:email_notification)
       end
     
       describe '#perform' do    
         it 'sends e-mails to all users when notify_post? is true' do
           notification = Factory.build(:email_notification)
           Kublog::Processor.should_receive(:work).exactly(User.count).times
-          @bulk_email.perform
+          Email::BulkEmail.perform(@notification.id)
         end
         
         it 'sends e-mail to no users when notify_post? defaults to false' do
           Support.dont_notify_users_by_default
           Kublog::Processor.should_not_receive(:work)
-          @bulk_email.perform
+          Email::BulkEmail.perform(@notification.id)
         end
         
         it 'evaluates notify_post? before sending e-mails' do
           Support.notify_select_users
           Factory(:user, :kind => 'cool')
-          notification = Factory.build(:email_notification, :roles => ['cool'])
-          bulk_email = Email::BulkEmail.new(notification)
+          notification = Factory.create(:email_notification, :roles => ['cool'])
           Kublog::Processor.should_receive(:work).once
-          bulk_email.perform
+          Email::BulkEmail.perform(notification.id)
         end
         
       end

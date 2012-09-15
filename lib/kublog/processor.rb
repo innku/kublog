@@ -8,24 +8,24 @@ module Kublog
   module Processor
     
     # Proxy method that calls the configuration specified processor
-    def self.work(task)
-      self.send(Kublog.notification_processing, task)
+    def self.work(task, *params)
+      self.send(Kublog.notification_processing, task, *params)
     end
     
     private
     
     # Immediately calls perform on the task given (No background processing)
-    def self.immediate(task)
-      task.perform
+    def self.immediate(task, *params)
+      task.perform *params
     end
     
     # Should create a new Job for processing with DeleyedJob
-    def self.delayed_job(task)
-      Delayed::Job.enqueue(task)
+    def self.delayed_job(task, *params)
+      task.delay.perform(*params)
     end
     
-    def self.resque(task)
-      Resque.enqueue(task)
+    def self.resque(task, *params)
+      Resque.enqueue(task, *params)
     end
 
   end
