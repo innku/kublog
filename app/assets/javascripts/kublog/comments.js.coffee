@@ -4,7 +4,7 @@ $(document).ready ->
     resetErrors()
   
   $('#kublog #new_kublog_comment').bind 'ajax:success', (xhr, data, status)->
-    $('.post-comments').append(commentTemplate(data))
+    $('.post-comments').append(commentTemplate(data && data.comment || data))
     $(this).find('textarea,input[type=text]').val('')
     
   $('#kublog #new_kublog_comment').bind 'ajax:error', (xhr, error, status)->
@@ -20,9 +20,9 @@ $(document).ready ->
     
 # Templates
 commentTemplate = (comment) ->
-  extra_class = ' admin' if comment['admin?']?
+  extra_class = 'admin' if comment['admin?']
   """
-  <div class='comment#{extra_class}'>
+  <div class='comment #{extra_class}'>
     <h4>#{comment.author}</h4> 
     <span>#{comment.ftime}</span> 
     <p class='body'>#{comment.body}</p> 
