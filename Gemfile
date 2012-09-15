@@ -12,4 +12,6 @@ group :development, :test do
   gem 'headless'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'jquery-rails'
+  gem 'coffee-script'
 end

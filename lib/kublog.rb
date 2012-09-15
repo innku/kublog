@@ -1,6 +1,4 @@
 require "rails"
-require 'coffee-script'
-require "jquery-rails"
 require "twitter"
 require "fb_graph"
 require "friendly_id"

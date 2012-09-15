@@ -4,6 +4,8 @@ require 'rails/all'
 
 Bundler.require
 require "kublog"
+require 'coffee-script'
+require "jquery-rails"
 
 module Dummy
   class Application < Rails::Application

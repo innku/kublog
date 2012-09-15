@@ -25,7 +25,7 @@ module Kublog
     end
     
     def self.resque(task)
-      Resque.enqueue(task.class, task.notification.id)
+      Resque.enqueue(task)
     end
 
   end

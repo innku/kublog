@@ -43,7 +43,7 @@ module Kublog
         def initialize(notification)
           @notification = notification
           @url = notification.url
-          @message = notification.message
+          @message = notification.content
         end
         
         # Posts a link to the post with the title of the content of the notification
