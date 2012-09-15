@@ -10,6 +10,8 @@ module Kublog
     delegate        :admin?, :to => :user, :allow_nil => true
     
     after_create    :notify_author
+
+    attr_accessible  :body, :user
     
     def author
       (self.user && self.user.to_s) || self.author_name

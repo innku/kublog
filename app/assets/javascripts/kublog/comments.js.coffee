@@ -6,7 +6,7 @@ $(document).ready ->
     resetErrors()
   
   $('#kublog #new_comment').bind 'ajax:success', (xhr, data, status)->
-    $('.post-comments').append(commentTemplate(data.comment))
+    $('.post-comments').append(commentTemplate(data))
     $(this).find('textarea,input[type=text]').val('')
     $(this).find('input[type=submit]').removeClass('btn-disabled').addClass('btn').removeAttr('disabled')
     $(this).find('.spinner_div').hide();
@@ -14,7 +14,6 @@ $(document).ready ->
     $count = $('.post-comments .comments-count')
     comments_count = parseInt($count.text(), 10)
     $count.html($count.text().replace(comments_count, comments_count+1))
-
 
   $('#kublog #new_comment').bind 'ajax:error', (xhr, error, status)->
     errors =  JSON.parse(error.responseText)
