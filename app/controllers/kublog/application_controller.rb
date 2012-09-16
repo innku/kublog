@@ -21,7 +21,7 @@ module Kublog
     ## Returns if the current user has admin privileges for the blog
     ## Define this whether or not you have the method on your application controller
     def is_admin?
-
+      true
     end
     
   end
