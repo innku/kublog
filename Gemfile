@@ -13,5 +13,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'jquery-rails'
+  gem 'bcrypt-ruby'
+  gem 'delayed_job_active_record'
   gem 'coffee-script'
 end

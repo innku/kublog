@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'delayed_job_active_record'
 
 describe Kublog::Processor do
   
@@ -18,6 +19,10 @@ describe Kublog::Processor do
     it 'creates a job in delayed job for later processing' do
       Kublog.notification_processing = :delayed_job
       Kublog::Processor.work(TestTask.new).should be_an_instance_of(Delayed::Backend::ActiveRecord::Job)
+    end
+
+    after(:all) do
+      Kublog.notification_processing = :immediate
     end
     
   end

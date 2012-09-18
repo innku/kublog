@@ -31,10 +31,6 @@ Generate migrations and all the code you'll likely want to customize.
 
   rails generate kublog:install
 
-Copy the migrations to the parent applications
-
-  rake kublog:install:migrations
-
 Run the migrations
 
   rake db:migrate
@@ -53,6 +49,7 @@ Configure your blog's basic information on **initializers/kublog.rb**
 
   Kublog.setup do |config|
     config.blog_name = 'Example blog'
+    config.author_class = 'User' # Or whatever
     config.blog_description = 'Best blog ever'
     config.default_url_options = {:host => 'www.exampleblog.com'}
   end

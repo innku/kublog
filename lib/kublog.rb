@@ -16,6 +16,7 @@ module Kublog
   autoload   :Notifiable, 'kublog/notifiable'
   autoload   :Author,     'kublog/author'
   autoload   :Processor,  'kublog/processor'
+  autoload   :Middleware, 'kublog/middleware'
   
   module Network
     autoload :Email,      'kublog/network/email'
@@ -53,7 +54,7 @@ module Kublog
   def self.notification_processing=(method='')
     @@notification_processing = method.to_sym
     if @@notification_processing == :delayed_job
-      unless defined? Delayed::Job
+      unless defined? Delayed
         raise 'You must require delayed_job in your Gemfile to use this feature' 
       end
     elsif @@notification_processing == :resque
@@ -120,6 +121,10 @@ module Kublog
   
   def self.root_path
     Engine.routes.url_helpers.root_path
+  end
+
+  def self.author_id_column
+    self.author_class.downcase
   end
   
 end

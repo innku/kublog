@@ -4,8 +4,7 @@ module Kublog
   module Author
     
     def self.included(base)
-      Kublog.author_class = base.name
-      base.send :has_many, :posts, :class_name => 'Kublog::Post'
+      base.send :has_many, :posts, :class_name => 'Kublog::Post', :foreign_key => :user_id
     end
     
   end

@@ -25,13 +25,13 @@ Gem::Specification.new do |s|
   
   # This gems should stop being dependencies but optional with certain features
   s.add_runtime_dependency "rmagick"
-  s.add_runtime_dependency "carrierwave"
+  s.add_runtime_dependency "carrierwave", '0.6.2'
   s.add_runtime_dependency 'liquid'
   s.add_runtime_dependency 'twitter'
   s.add_runtime_dependency 'fb_graph'
   
   # Development dependencies
-  s.add_development_dependency "factory_girl_rails"
+  s.add_development_dependency "factory_girl_rails", '1.1.0'
   s.add_development_dependency "sqlite3"
   
 end
