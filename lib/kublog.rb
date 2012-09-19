@@ -16,7 +16,6 @@ module Kublog
   autoload   :Notifiable, 'kublog/notifiable'
   autoload   :Author,     'kublog/author'
   autoload   :Processor,  'kublog/processor'
-  autoload   :Middleware, 'kublog/middleware'
   
   module Network
     autoload :Email,      'kublog/network/email'
