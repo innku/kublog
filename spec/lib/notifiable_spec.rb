@@ -7,11 +7,8 @@ describe Kublog::Notifiable do
   describe '.included' do
     
     before :all do
+      Kublog.notify_class = 'TestUser'
       TestUser.send :include, Kublog::Notifiable
-    end
-    
-    it 'sets up a configuration variable for the user class to notify to' do
-      Kublog.notify_class.should == 'TestUser'
     end
     
     it 'defaults notify_post? to true' do

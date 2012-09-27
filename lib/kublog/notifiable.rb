@@ -6,7 +6,6 @@ module Kublog
   module Notifiable
     
     def self.included(base)
-      Kublog.notify_class = base.name
       base.send :include, InstanceMethods
     end
     
