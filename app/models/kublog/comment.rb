@@ -1,6 +1,6 @@
 module Kublog
   class Comment < ActiveRecord::Base
-    belongs_to :user
+    belongs_to :user, :class_name => Kublog.author_class
     belongs_to :post
     
     validates_presence_of :body
